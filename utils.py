@@ -1,3 +1,7 @@
+import numpy as np
+from sklearn.metrics import classification_report, f1_score
+from wfudata.wfudata import _class_names
+
 class PreProcess():
     def __init__(self, tokenizer, str2int, max_length=128, stride=10):
         self.tokenizer = tokenizer
@@ -58,3 +62,24 @@ class PreProcess():
             labels.append(label)
         tokenized_inputs['labels'] = labels     
         return tokenized_inputs
+
+def compute_metrics(p):
+    predictions, labels = p
+    print(type(predictions))
+    predictions = np.argmax(predictions, axis=2)
+
+    true_predictions = [
+        p for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100
+    ]
+
+    true_labels = [
+        l for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 #and l != normal_l
+    ]
+
+    report = classification_report(true_labels, true_predictions, zero_division=0.0,
+                                target_names=_class_names, digits=3, labels=range(len(_class_names)))
+
+    return {
+        "f1": f1_score(true_labels, true_predictions, average='macro', labels=range(len(_class_names))),
+        "report": report
+    }

@@ -1,0 +1,6 @@
+logs*
+test*
+wfudata*
+.ipynb_checkpoints
+__pycache__
+*.csv
