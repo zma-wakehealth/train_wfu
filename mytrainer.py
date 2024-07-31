@@ -29,13 +29,15 @@ class MyTrainer(Trainer):
 
         with open(self.log_file, 'a') as fid:
             if 'eval_loss' in logs:
-                fid.write(f'evaliation: step={self.state.global_step}, f1={logs['eval_f1']}')
+                fid.write(f'evaliation: step={self.state.global_step}, f1={logs["eval_f1"]}')
                 fid.write('\n')
                 fid.write(logs['eval_report'])
                 fid.write('\n')
-            else:
-                fid.write(f'training: step={self.state.global_step}, loss={logs['loss']}')
+            elif 'loss' in logs:
+                fid.write(f'training: step={self.state.global_step}, loss={logs["loss"]}')
                 fid.write('\n')
+            else:
+                pass
         
         if self.state.epoch is not None:
             logs["epoch"] = self.state.epoch

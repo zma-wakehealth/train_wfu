@@ -1,31 +1,12 @@
 import datasets
 import numpy as np
 from transformers import AutoTokenizer
-from utils import PreProcess
+from utils import PreProcess, compute_metrics
 from transformers import DataCollatorForTokenClassification
 from sklearn.metrics import classification_report, f1_score
-from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer
-
-def compute_metrics(p):
-    predictions, labels = p
-    print(type(predictions))
-    predictions = np.argmax(predictions, axis=2)
-
-    true_predictions = [
-        p for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 #and l != normal_l
-    ]
-
-    true_labels = [
-        l for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 #and l != normal_l
-    ]
-
-    print(classification_report(true_labels, true_predictions, zero_division=0.0,
-                                target_names=class_labels, digits=3, labels=range(len(class_labels))))
-
-    return {
-        "f1": f1_score(true_labels, true_predictions, average='macro', labels=range(len(class_labels)))
-    }
-
+from transformers import AutoModelForTokenClassification, TrainingArguments
+from mytrainer import MyTrainer 
+from sklearn.utils.class_weight import compute_class_weight
 
 if (__name__ == '__main__'):
     wfu_dataset = datasets.load_dataset('wfudata', trust_remote_code=True)
@@ -34,6 +15,14 @@ if (__name__ == '__main__'):
 
     wfu_dataset_tokenized = wfu_dataset.map(preprocess, batched=True, batch_size=5,
                                         remove_columns=wfu_dataset['train'].column_names)
+    tokens_stat = []
+    for x in wfu_dataset_tokenized['train']['labels']:
+        tokens_stat += [i for i in x if i != -100]
+    class_weights = compute_class_weight('balanced', 
+                 classes=np.array(range(wfu_dataset['train'].features['label'].num_classes)),
+                 y=tokens_stat)
+    print(class_weights)
+    
 
     data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
     device = 'cuda:0'
@@ -50,7 +39,7 @@ if (__name__ == '__main__'):
       learning_rate=2e-5,
       per_device_train_batch_size=16,
       per_device_eval_batch_size=16,
-      num_train_epochs=2,
+      num_train_epochs=5,
       weight_decay=0.01,
       eval_strategy="steps",
       eval_steps=200,
@@ -62,7 +51,10 @@ if (__name__ == '__main__'):
       logging_steps=50
     )
 
-    trainer = Trainer(
+    trainer = MyTrainer(
+      #class_weights = np.ones(len(class_labels), dtype=np.float32),
+      class_weights = class_weights.astype(np.float32),
+      log_file = 'with_balanced_weighting.txt',
       model=model,
       args=training_args,
       train_dataset=wfu_dataset_tokenized["train"],
