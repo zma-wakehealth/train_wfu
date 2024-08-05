@@ -1,11 +1,15 @@
 import numpy as np
 from sklearn.metrics import classification_report, f1_score
-from wfudata.wfudata import _class_names
+from wfudata.wfudata import useful_class_names, normal_l 
 
 class PreProcess():
-    def __init__(self, tokenizer, str2int, max_length=128, stride=10):
+    '''
+      It's much better if you can set the tokenizer.max_length after it's loaded
+    '''
+    def __init__(self, tokenizer, str2int, max_length=512, stride=64):
         self.tokenizer = tokenizer
-        self.max_length = max_length
+        if tokenizer.model_max_length > max_length:
+            tokenizer.model_max_length = max_length
         self.stride = stride
         self.str2int = str2int
     
@@ -13,8 +17,10 @@ class PreProcess():
         '''
           careful here, you need think of examples as a list of example within a batch
         '''
+
+        # set the max_length to none to use tokenizer.model_max_length instead
         tokenized_inputs = self.tokenizer(examples['text'], is_split_into_words=False, truncation=True,
-                                          max_length=self.max_length, return_overflowing_tokens=True,
+                                          max_length=None, return_overflowing_tokens=True,
                                           stride=self.stride)
         
         labels = []
@@ -65,21 +71,20 @@ class PreProcess():
 
 def compute_metrics(p):
     predictions, labels = p
-    print(type(predictions))
     predictions = np.argmax(predictions, axis=2)
 
     true_predictions = [
-        p for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100
+        p for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 and l != normal_l
     ]
 
     true_labels = [
-        l for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 #and l != normal_l
+        l for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 and l != normal_l
     ]
 
     report = classification_report(true_labels, true_predictions, zero_division=0.0,
-                                target_names=_class_names, digits=3, labels=range(len(_class_names)))
+                                target_names=useful_class_names, digits=3, labels=range(len(useful_class_names)))
 
     return {
-        "f1": f1_score(true_labels, true_predictions, average='macro', labels=range(len(_class_names))),
+        "f1": f1_score(true_labels, true_predictions, average='macro', labels=range(len(useful_class_names))),
         "report": report
     }

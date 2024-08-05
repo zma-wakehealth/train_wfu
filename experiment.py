@@ -22,9 +22,15 @@ def reset_model(num_labels):
 if (__name__ == '__main__'):
     wfu_dataset = datasets.load_dataset('wfudata', trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained("microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext")
-    preprocess = PreProcess(tokenizer, wfu_dataset['train'].features['label'].str2int, max_length=128, stride=10)
 
-    wfu_dataset_tokenized = wfu_dataset.map(preprocess, batched=True, batch_size=5,
+    # force the tokenizer model length to be biomert, this is from model.config['max_position_embeddings']
+    # the default tokenizer.model_max_length is way too large
+    # 128 reduce the memory issue
+    tokenizer.model_max_length = 128
+
+    preprocess = PreProcess(tokenizer, wfu_dataset['train'].features['label'].str2int, stride=16)
+
+    wfu_dataset_tokenized = wfu_dataset.map(preprocess, batched=True, batch_size=16,
                                         remove_columns=wfu_dataset['train'].column_names)
     
     data_collator = DataCollatorForTokenClassification(tokenizer=tokenizer)
