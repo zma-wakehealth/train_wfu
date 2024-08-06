@@ -8,11 +8,14 @@ from transformers import AutoModelForTokenClassification, TrainingArguments
 from mytrainer import MyTrainer 
 from sklearn.utils.class_weight import compute_class_weight
 import os
+from wfudata.wfudata import id2label, label2id
 
 def reset_model(num_labels):
     model = AutoModelForTokenClassification.from_pretrained(
                   "microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext",
-                  num_labels=num_labels).to(device)
+                  num_labels=num_labels,
+                  id2label=id2label,
+                  label2id=label2id).to(device)
     # need to force contiguous otherwise won't be able to save the model, strange behavior
     for _, param in model.named_parameters():
         param.data = param.data.contiguous()

@@ -1,1026 +1,1032 @@
-training: step=50, loss=0.6424
-training: step=100, loss=0.0911
-training: step=150, loss=0.0617
-training: step=200, loss=0.0486
-evaliation: step=200, f1=0.4800220289911676
+training: step=50, loss=0.5387
+training: step=100, loss=0.0822
+training: step=150, loss=0.0679
+training: step=200, loss=0.0443
+evaliation: step=200, f1=0.38472087201214816
               precision    recall  f1-score   support
 
-         AGE      0.939     0.397     0.559       390
-        DATE      0.973     0.983     0.978     19018
+         AGE      1.000     0.010     0.020       388
+        DATE      1.000     0.976     0.988     19006
        EMAIL      0.000     0.000     0.000        32
-    HOSPITAL      0.448     0.787     0.571      1066
-       IDNUM      0.914     0.930     0.922      1529
-    INITIALS      0.000     0.000     0.000        83
+    HOSPITAL      0.902     0.614     0.731      1063
+       IDNUM      0.933     0.908     0.920      1544
+    INITIALS      0.000     0.000     0.000        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.797     0.257     0.388      1266
-        NAME      0.945     0.959     0.952     11005
+    LOCATION      0.845     0.676     0.751      1245
+        NAME      0.993     0.932     0.962     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.942     0.816     0.875       158
+       PHONE      0.821     0.144     0.245       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.995     0.996     0.995    328966
 
-    accuracy                          0.989    363542
-   macro avg      0.535     0.471     0.480    363542
-weighted avg      0.990     0.989     0.989    363542
+   micro avg      0.987     0.918     0.952     34581
+   macro avg      0.541     0.355     0.385     34581
+weighted avg      0.981     0.918     0.942     34581
 
-training: step=250, loss=0.0452
-training: step=300, loss=0.0375
-training: step=350, loss=0.0384
-training: step=400, loss=0.0337
-evaliation: step=400, f1=0.5496664895235182
+training: step=250, loss=0.0389
+training: step=300, loss=0.0367
+training: step=350, loss=0.04
+training: step=400, loss=0.0344
+evaliation: step=400, f1=0.5305625509629247
               precision    recall  f1-score   support
 
-         AGE      0.804     0.736     0.768       390
-        DATE      0.979     0.988     0.983     19018
+         AGE      0.996     0.624     0.767       388
+        DATE      1.000     0.989     0.994     19006
        EMAIL      0.000     0.000     0.000        32
-    HOSPITAL      0.741     0.816     0.777      1066
-       IDNUM      0.894     0.962     0.927      1529
-    INITIALS      0.000     0.000     0.000        83
+    HOSPITAL      0.862     0.812     0.836      1063
+       IDNUM      0.994     0.948     0.971      1544
+    INITIALS      0.000     0.000     0.000        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.874     0.829     0.851      1266
-        NAME      0.961     0.968     0.965     11005
+    LOCATION      0.929     0.860     0.893      1245
+        NAME      0.998     0.967     0.982     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.847     0.911     0.878       158
+       PHONE      0.947     0.900     0.923       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.996     0.996    328966
 
-    accuracy                          0.993    363542
-   macro avg      0.546     0.554     0.550    363542
-weighted avg      0.992     0.993     0.993    363542
+   micro avg      0.992     0.961     0.976     34581
+   macro avg      0.561     0.508     0.531     34581
+weighted avg      0.988     0.961     0.974     34581
 
-training: step=450, loss=0.0257
-training: step=500, loss=0.0351
-training: step=550, loss=0.0316
-training: step=600, loss=0.0253
-evaliation: step=600, f1=0.5614219791109722
+training: step=450, loss=0.0313
+training: step=500, loss=0.0319
+training: step=550, loss=0.0268
+training: step=600, loss=0.0248
+evaliation: step=600, f1=0.5365624870035692
               precision    recall  f1-score   support
 
-         AGE      0.804     0.695     0.746       390
-        DATE      0.988     0.987     0.987     19018
+         AGE      0.996     0.706     0.827       388
+        DATE      1.000     0.987     0.993     19006
        EMAIL      0.000     0.000     0.000        32
-    HOSPITAL      0.798     0.735     0.766      1066
-       IDNUM      0.928     0.967     0.947      1529
-    INITIALS      1.000     0.084     0.156        83
+    HOSPITAL      0.890     0.820     0.854      1063
+       IDNUM      0.994     0.933     0.963      1544
+    INITIALS      0.000     0.000     0.000        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.867     0.874     0.870      1266
-        NAME      0.970     0.970     0.970     11005
+    LOCATION      0.933     0.859     0.895      1245
+        NAME      0.998     0.972     0.985     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.810     0.918     0.861       158
+       PHONE      0.947     0.900     0.923       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.997     0.997    328966
 
-    accuracy                          0.994    363542
-   macro avg      0.628     0.556     0.561    363542
-weighted avg      0.994     0.994     0.994    363542
+   micro avg      0.993     0.963     0.978     34581
+   macro avg      0.563     0.515     0.537     34581
+weighted avg      0.989     0.963     0.975     34581
 
-training: step=650, loss=0.0242
-training: step=700, loss=0.0287
-training: step=750, loss=0.0236
-training: step=800, loss=0.0231
-evaliation: step=800, f1=0.6124794183486787
+training: step=650, loss=0.0308
+training: step=700, loss=0.0261
+training: step=750, loss=0.0279
+training: step=800, loss=0.0283
+evaliation: step=800, f1=0.5965992612779939
               precision    recall  f1-score   support
 
-         AGE      0.861     0.731     0.791       390
-        DATE      0.976     0.990     0.983     19018
+         AGE      0.988     0.830     0.902       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      0.000     0.000     0.000        32
-    HOSPITAL      0.740     0.823     0.779      1066
-       IDNUM      0.953     0.967     0.960      1529
-    INITIALS      0.919     0.687     0.786        83
+    HOSPITAL      0.839     0.861     0.850      1063
+       IDNUM      0.980     0.969     0.975      1544
+    INITIALS      1.000     0.588     0.741        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.932     0.764     0.839      1266
-        NAME      0.972     0.973     0.972     11005
+    LOCATION      0.982     0.775     0.866      1245
+        NAME      0.998     0.975     0.986     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.804     0.911     0.855       158
+       PHONE      0.939     0.769     0.845       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.997     0.997    328966
 
-    accuracy                          0.994    363542
-   macro avg      0.627     0.603     0.612    363542
-weighted avg      0.994     0.994     0.994    363542
+   micro avg      0.992     0.967     0.979     34581
+   macro avg      0.644     0.563     0.597     34581
+weighted avg      0.991     0.967     0.978     34581
 
-training: step=850, loss=0.0237
-training: step=900, loss=0.0228
-training: step=950, loss=0.0204
-training: step=1000, loss=0.0213
-evaliation: step=1000, f1=0.6188421126671749
+training: step=850, loss=0.0294
+training: step=900, loss=0.0184
+training: step=950, loss=0.0186
+training: step=1000, loss=0.0198
+evaliation: step=1000, f1=0.6298378066934093
               precision    recall  f1-score   support
 
-         AGE      0.819     0.767     0.792       390
-        DATE      0.982     0.990     0.986     19018
-       EMAIL      0.000     0.000     0.000        32
-    HOSPITAL      0.840     0.776     0.807      1066
-       IDNUM      0.901     0.989     0.943      1529
-    INITIALS      0.897     0.735     0.808        83
+         AGE      0.992     0.668     0.798       388
+        DATE      1.000     0.988     0.994     19006
+       EMAIL      1.000     0.219     0.359        32
+    HOSPITAL      0.924     0.818     0.868      1063
+       IDNUM      0.989     0.959     0.974      1544
+    INITIALS      1.000     0.624     0.768        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.899     0.862     0.880      1266
-        NAME      0.980     0.966     0.973     11005
+    LOCATION      0.965     0.831     0.893      1245
+        NAME      0.998     0.972     0.985     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.870     0.848     0.859       158
+       PHONE      0.947     0.894     0.920       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.997     0.997    328966
 
-    accuracy                          0.994    363542
-   macro avg      0.630     0.610     0.619    363542
-weighted avg      0.994     0.994     0.994    363542
+   micro avg      0.995     0.964     0.979     34581
+   macro avg      0.735     0.581     0.630     34581
+weighted avg      0.994     0.964     0.978     34581
 
-training: step=1050, loss=0.0207
-training: step=1100, loss=0.021
-training: step=1150, loss=0.0159
-training: step=1200, loss=0.0209
-evaliation: step=1200, f1=0.6710017324796989
+training: step=1050, loss=0.0175
+training: step=1100, loss=0.0194
+training: step=1150, loss=0.0206
+training: step=1200, loss=0.0211
+evaliation: step=1200, f1=0.6846695227347938
               precision    recall  f1-score   support
 
-         AGE      0.891     0.733     0.805       390
-        DATE      0.968     0.993     0.980     19018
-       EMAIL      1.000     0.406     0.578        32
-    HOSPITAL      0.828     0.814     0.821      1066
-       IDNUM      0.931     0.983     0.956      1529
-    INITIALS      0.897     0.735     0.808        83
+         AGE      0.989     0.688     0.812       388
+        DATE      1.000     0.988     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.847     0.872     0.859      1063
+       IDNUM      0.998     0.963     0.980      1544
+    INITIALS      1.000     0.659     0.794        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.878     0.907     0.892      1266
-        NAME      0.967     0.979     0.973     11005
+    LOCATION      0.993     0.721     0.836      1245
+        NAME      0.999     0.971     0.985     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.896     0.930     0.913       158
+       PHONE      0.951     0.963     0.957       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.996     0.997    328966
 
-    accuracy                          0.994    363542
-   macro avg      0.712     0.652     0.671    363542
-weighted avg      0.994     0.994     0.994    363542
+   micro avg      0.994     0.963     0.978     34581
+   macro avg      0.731     0.652     0.685     34581
+weighted avg      0.993     0.963     0.977     34581
 
-training: step=1250, loss=0.0197
-training: step=1300, loss=0.017
-training: step=1350, loss=0.0162
-training: step=1400, loss=0.0155
-evaliation: step=1400, f1=0.700105508490823
+training: step=1250, loss=0.0213
+training: step=1300, loss=0.0171
+training: step=1350, loss=0.0144
+training: step=1400, loss=0.0235
+evaliation: step=1400, f1=0.6675125218531873
               precision    recall  f1-score   support
 
-         AGE      0.858     0.808     0.832       390
-        DATE      0.986     0.989     0.988     19018
-       EMAIL      0.889     1.000     0.941        32
-    HOSPITAL      0.809     0.820     0.815      1066
-       IDNUM      0.941     0.969     0.955      1529
-    INITIALS      0.884     0.735     0.803        83
+         AGE      0.988     0.851     0.914       388
+        DATE      1.000     0.982     0.991     19006
+       EMAIL      1.000     0.438     0.609        32
+    HOSPITAL      0.941     0.821     0.877      1063
+       IDNUM      0.999     0.962     0.980      1544
+    INITIALS      0.843     0.694     0.761        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.859     0.925     0.890      1266
-        NAME      0.962     0.985     0.974     11005
+    LOCATION      0.957     0.896     0.925      1245
+        NAME      0.999     0.976     0.987     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.890     0.924     0.907       158
+       PHONE      0.952     0.981     0.966       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.698     0.704     0.700    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.967     0.981     34581
+   macro avg      0.723     0.633     0.668     34581
+weighted avg      0.995     0.967     0.980     34581
 
-training: step=1450, loss=0.0163
-training: step=1500, loss=0.0205
-training: step=1550, loss=0.0221
-training: step=1600, loss=0.0236
-evaliation: step=1600, f1=0.6892586620211465
+training: step=1450, loss=0.0171
+training: step=1500, loss=0.0224
+training: step=1550, loss=0.0162
+training: step=1600, loss=0.0195
+evaliation: step=1600, f1=0.6698218035769382
               precision    recall  f1-score   support
 
-         AGE      0.906     0.692     0.785       390
-        DATE      0.986     0.989     0.987     19018
-       EMAIL      0.842     1.000     0.914        32
-    HOSPITAL      0.690     0.905     0.783      1066
-       IDNUM      0.947     0.973     0.960      1529
-    INITIALS      0.847     0.735     0.787        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.911     0.837     0.872      1266
-        NAME      0.956     0.985     0.971     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.885     0.924     0.904       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.996     0.997    328966
-
-    accuracy                          0.994    363542
-   macro avg      0.690     0.695     0.689    363542
-weighted avg      0.994     0.994     0.994    363542
-
-training: step=1650, loss=0.0187
-training: step=1700, loss=0.0122
-training: step=1750, loss=0.0147
-training: step=1800, loss=0.0131
-evaliation: step=1800, f1=0.698205600897353
-              precision    recall  f1-score   support
-
-         AGE      0.654     0.903     0.759       390
-        DATE      0.990     0.988     0.989     19018
-       EMAIL      0.914     1.000     0.955        32
-    HOSPITAL      0.810     0.831     0.820      1066
-       IDNUM      0.964     0.965     0.965      1529
-    INITIALS      0.899     0.747     0.816        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.877     0.909     0.893      1266
-        NAME      0.979     0.979     0.979     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.885     0.924     0.904       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.690     0.711     0.698    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=1850, loss=0.0183
-training: step=1900, loss=0.0133
-training: step=1950, loss=0.0142
-training: step=2000, loss=0.0122
-evaliation: step=2000, f1=0.7025286294434714
-              precision    recall  f1-score   support
-
-         AGE      0.881     0.800     0.839       390
-        DATE      0.977     0.992     0.984     19018
-       EMAIL      0.865     1.000     0.928        32
-    HOSPITAL      0.882     0.787     0.832      1066
-       IDNUM      0.948     0.970     0.959      1529
-    INITIALS      0.897     0.735     0.808        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.903     0.920     0.912      1266
-        NAME      0.970     0.985     0.977     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.883     0.911     0.897       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.708     0.700     0.703    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=2050, loss=0.014
-training: step=2100, loss=0.0135
-training: step=2150, loss=0.0123
-training: step=2200, loss=0.0143
-evaliation: step=2200, f1=0.7006088843068962
-              precision    recall  f1-score   support
-
-         AGE      0.886     0.821     0.852       390
-        DATE      0.989     0.989     0.989     19018
-       EMAIL      0.800     1.000     0.889        32
-    HOSPITAL      0.802     0.853     0.826      1066
-       IDNUM      0.938     0.967     0.953      1529
-    INITIALS      0.899     0.747     0.816        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.903     0.920     0.912      1266
-        NAME      0.979     0.980     0.980     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.908     0.880     0.894       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.700     0.704     0.701    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=2250, loss=0.0126
-training: step=2300, loss=0.0159
-training: step=2350, loss=0.0156
-training: step=2400, loss=0.0163
-evaliation: step=2400, f1=0.6990540821317066
-              precision    recall  f1-score   support
-
-         AGE      0.856     0.851     0.853       390
-        DATE      0.987     0.989     0.988     19018
+         AGE      0.988     0.814     0.893       388
+        DATE      0.999     0.989     0.994     19006
        EMAIL      0.821     1.000     0.901        32
-    HOSPITAL      0.841     0.796     0.818      1066
-       IDNUM      0.919     0.988     0.952      1529
-    INITIALS      0.899     0.747     0.816        83
+    HOSPITAL      0.979     0.530     0.687      1063
+       IDNUM      0.994     0.958     0.976      1544
+    INITIALS      1.000     0.718     0.836        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.849     0.930     0.888      1266
-        NAME      0.968     0.986     0.977     11005
+    LOCATION      0.800     0.869     0.833      1245
+        NAME      0.999     0.976     0.988     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.865     0.930     0.896       158
+       PHONE      0.948     0.912     0.930       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.692     0.709     0.699    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.990     0.961     0.976     34581
+   macro avg      0.711     0.647     0.670     34581
+weighted avg      0.990     0.961     0.973     34581
 
-training: step=2450, loss=0.0118
-training: step=2500, loss=0.0115
-training: step=2550, loss=0.0117
-training: step=2600, loss=0.0108
-evaliation: step=2600, f1=0.7077781457180984
+training: step=1650, loss=0.0206
+training: step=1700, loss=0.0184
+training: step=1750, loss=0.0158
+training: step=1800, loss=0.015
+evaliation: step=1800, f1=0.7005358951949449
               precision    recall  f1-score   support
 
-         AGE      0.867     0.838     0.853       390
-        DATE      0.987     0.989     0.988     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.869     0.786     0.826      1066
-       IDNUM      0.937     0.974     0.955      1529
-    INITIALS      0.899     0.747     0.816        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.921     0.869     0.894      1266
-        NAME      0.975     0.981     0.978     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.908     0.880     0.894       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.998     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.720     0.697     0.708    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=2650, loss=0.0113
-training: step=2700, loss=0.0104
-training: step=2750, loss=0.0118
-training: step=2800, loss=0.0101
-evaliation: step=2800, f1=0.7027030124174094
-              precision    recall  f1-score   support
-
-         AGE      0.879     0.823     0.850       390
-        DATE      0.988     0.989     0.988     19018
+         AGE      0.991     0.851     0.915       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      0.914     1.000     0.955        32
-    HOSPITAL      0.879     0.766     0.819      1066
-       IDNUM      0.952     0.963     0.958      1529
-    INITIALS      0.899     0.747     0.816        83
+    HOSPITAL      0.947     0.843     0.892      1063
+       IDNUM      0.994     0.960     0.977      1544
+    INITIALS      1.000     0.718     0.836        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.933     0.823     0.875      1266
-        NAME      0.979     0.979     0.979     11005
+    LOCATION      0.956     0.853     0.902      1245
+        NAME      0.998     0.979     0.988     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.909     0.886     0.897       158
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.998     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.718     0.690     0.703    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.972     0.984     34581
+   macro avg      0.729     0.678     0.701     34581
+weighted avg      0.994     0.972     0.983     34581
 
-training: step=2850, loss=0.0114
-training: step=2900, loss=0.0103
-training: step=2950, loss=0.0113
-training: step=3000, loss=0.011
-evaliation: step=3000, f1=0.7279227102764263
+training: step=1850, loss=0.0123
+training: step=1900, loss=0.0143
+training: step=1950, loss=0.0126
+training: step=2000, loss=0.0128
+evaliation: step=2000, f1=0.7017035123746186
               precision    recall  f1-score   support
 
-         AGE      0.897     0.800     0.846       390
-        DATE      0.987     0.990     0.989     19018
-       EMAIL      0.865     1.000     0.928        32
-    HOSPITAL      0.827     0.853     0.840      1066
-       IDNUM      0.936     0.972     0.953      1529
-    INITIALS      0.939     0.747     0.832        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.871     0.910     0.890      1266
-        NAME      0.963     0.986     0.975     11005
-       OTHER      0.200     0.652     0.306        23
-       PHONE      0.886     0.930     0.907       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.721     0.757     0.728    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=3050, loss=0.0104
-training: step=3100, loss=0.0108
-training: step=3150, loss=0.0105
-training: step=3200, loss=0.0111
-evaliation: step=3200, f1=0.7137353601618698
-              precision    recall  f1-score   support
-
-         AGE      0.868     0.826     0.846       390
-        DATE      0.989     0.990     0.989     19018
+         AGE      0.991     0.814     0.894       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.831     0.869     0.850      1066
-       IDNUM      0.960     0.969     0.965      1529
-    INITIALS      0.984     0.735     0.841        83
+    HOSPITAL      0.890     0.849     0.869      1063
+       IDNUM      0.992     0.964     0.978      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.907     0.895     0.901      1266
-        NAME      0.983     0.973     0.978     11005
+    LOCATION      0.976     0.829     0.897      1245
+        NAME      0.999     0.981     0.990     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.891     0.930     0.910       158
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.724     0.706     0.714    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.995     0.972     0.983     34581
+   macro avg      0.733     0.676     0.702     34581
+weighted avg      0.994     0.972     0.983     34581
 
-training: step=3250, loss=0.0107
-training: step=3300, loss=0.0115
-training: step=3350, loss=0.0091
-training: step=3400, loss=0.0099
-evaliation: step=3400, f1=0.7136531321843017
+training: step=2050, loss=0.0139
+training: step=2100, loss=0.0147
+training: step=2150, loss=0.0157
+training: step=2200, loss=0.0129
+evaliation: step=2200, f1=0.6951821129248051
               precision    recall  f1-score   support
 
-         AGE      0.913     0.805     0.856       390
-        DATE      0.990     0.989     0.990     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.822     0.863     0.842      1066
-       IDNUM      0.937     0.975     0.956      1529
-    INITIALS      0.984     0.735     0.841        83
+         AGE      0.994     0.802     0.887       388
+        DATE      1.000     0.985     0.992     19006
+       EMAIL      0.970     1.000     0.985        32
+    HOSPITAL      0.941     0.801     0.865      1063
+       IDNUM      0.995     0.976     0.986      1544
+    INITIALS      1.000     0.718     0.836        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.909     0.881     0.895      1266
-        NAME      0.981     0.977     0.979     11005
+    LOCATION      0.960     0.888     0.923      1245
+        NAME      0.999     0.978     0.989     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.913     0.930     0.922       158
+       PHONE      0.943     0.825     0.880       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.727     0.704     0.714    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.969     0.982     34581
+   macro avg      0.733     0.664     0.695     34581
+weighted avg      0.995     0.969     0.982     34581
 
-training: step=3450, loss=0.008
-training: step=3500, loss=0.0085
-training: step=3550, loss=0.0075
-training: step=3600, loss=0.0064
-evaliation: step=3600, f1=0.7124717194379449
+training: step=2250, loss=0.016
+training: step=2300, loss=0.0131
+training: step=2350, loss=0.0143
+training: step=2400, loss=0.0157
+evaliation: step=2400, f1=0.6948044991262226
               precision    recall  f1-score   support
 
-         AGE      0.892     0.808     0.848       390
-        DATE      0.986     0.990     0.988     19018
+         AGE      0.991     0.814     0.894       388
+        DATE      1.000     0.989     0.994     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.888     0.814     0.850      1066
-       IDNUM      0.931     0.977     0.954      1529
-    INITIALS      0.984     0.735     0.841        83
+    HOSPITAL      0.934     0.851     0.891      1063
+       IDNUM      0.995     0.971     0.983      1544
+    INITIALS      1.000     0.729     0.844        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.908     0.878     0.892      1266
-        NAME      0.964     0.987     0.976     11005
+    LOCATION      0.960     0.868     0.912      1245
+        NAME      0.999     0.976     0.987     11029
        OTHER      0.000     0.000     0.000        23
-       PHONE      0.902     0.930     0.916       158
+       PHONE      0.938     0.750     0.833       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.727     0.701     0.712    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.971     0.983     34581
+   macro avg      0.735     0.662     0.695     34581
+weighted avg      0.994     0.971     0.982     34581
 
-training: step=3650, loss=0.0079
-training: step=3700, loss=0.0121
-training: step=3750, loss=0.0089
-training: step=3800, loss=0.0063
-evaliation: step=3800, f1=0.7569588624826923
+training: step=2450, loss=0.014
+training: step=2500, loss=0.0114
+training: step=2550, loss=0.0123
+training: step=2600, loss=0.016
+evaliation: step=2600, f1=0.7630986731287831
               precision    recall  f1-score   support
 
-         AGE      0.894     0.818     0.854       390
-        DATE      0.986     0.990     0.988     19018
+         AGE      0.987     0.802     0.885       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.878     0.804     0.839      1066
-       IDNUM      0.961     0.965     0.963      1529
-    INITIALS      0.954     0.747     0.838        83
+    HOSPITAL      0.938     0.889     0.913      1063
+       IDNUM      0.994     0.986     0.990      1544
+    INITIALS      0.984     0.741     0.846        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.887     0.904     0.896      1266
-        NAME      0.980     0.977     0.979     11005
-       OTHER      0.667     0.522     0.585        23
-       PHONE      0.910     0.892     0.901       158
+    LOCATION      0.960     0.893     0.926      1245
+        NAME      0.998     0.980     0.989     11029
+       OTHER      0.923     0.522     0.667        23
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.778     0.740     0.757    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.995     0.977     0.986     34581
+   macro avg      0.811     0.729     0.763     34581
+weighted avg      0.995     0.977     0.986     34581
 
-training: step=3850, loss=0.0063
-training: step=3900, loss=0.0101
-training: step=3950, loss=0.0094
-training: step=4000, loss=0.0098
-evaliation: step=4000, f1=0.7327054951376548
+training: step=2650, loss=0.0104
+training: step=2700, loss=0.0114
+training: step=2750, loss=0.0089
+training: step=2800, loss=0.0095
+evaliation: step=2800, f1=0.7428972485377092
               precision    recall  f1-score   support
 
-         AGE      0.816     0.864     0.839       390
-        DATE      0.982     0.991     0.987     19018
-       EMAIL      0.780     1.000     0.877        32
-    HOSPITAL      0.824     0.824     0.824      1066
-       IDNUM      0.928     0.984     0.955      1529
-    INITIALS      0.984     0.747     0.849        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.920     0.875     0.897      1266
-        NAME      0.974     0.984     0.979     11005
-       OTHER      0.450     0.391     0.419        23
-       PHONE      0.875     0.930     0.902       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.733     0.738     0.733    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=4050, loss=0.0105
-training: step=4100, loss=0.0089
-training: step=4150, loss=0.0082
-training: step=4200, loss=0.0077
-evaliation: step=4200, f1=0.7574261663324334
-              precision    recall  f1-score   support
-
-         AGE      0.837     0.872     0.854       390
-        DATE      0.985     0.991     0.988     19018
+         AGE      0.988     0.827     0.900       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.820     0.819     0.820      1066
-       IDNUM      0.928     0.991     0.959      1529
-    INITIALS      0.984     0.747     0.849        83
+    HOSPITAL      0.935     0.870     0.902      1063
+       IDNUM      0.998     0.988     0.993      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.856     0.941     0.896      1266
-        NAME      0.977     0.982     0.979     11005
+    LOCATION      0.950     0.859     0.903      1245
+        NAME      0.999     0.979     0.989     11029
+       OTHER      1.000     0.304     0.467        23
+       PHONE      0.947     0.887     0.916       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.974     0.985     34581
+   macro avg      0.818     0.704     0.743     34581
+weighted avg      0.995     0.974     0.984     34581
+
+training: step=2850, loss=0.0085
+training: step=2900, loss=0.0114
+training: step=2950, loss=0.0119
+training: step=3000, loss=0.01
+evaliation: step=3000, f1=0.7055698290918321
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.827     0.900       388
+        DATE      1.000     0.990     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.923     0.864     0.892      1063
+       IDNUM      0.994     0.990     0.992      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.973     0.835     0.898      1245
+        NAME      0.998     0.984     0.991     11029
+       OTHER      0.000     0.000     0.000        23
+       PHONE      0.950     0.944     0.947       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.975     0.985     34581
+   macro avg      0.735     0.681     0.706     34581
+weighted avg      0.994     0.975     0.984     34581
+
+training: step=3050, loss=0.0124
+training: step=3100, loss=0.0089
+training: step=3150, loss=0.0117
+training: step=3200, loss=0.0104
+evaliation: step=3200, f1=0.7503277806115819
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.874     0.927       388
+        DATE      1.000     0.988     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.974     0.739     0.841      1063
+       IDNUM      0.994     0.971     0.982      1544
+    INITIALS      1.000     0.718     0.836        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.903     0.922     0.912      1245
+        NAME      0.999     0.974     0.986     11029
        OTHER      1.000     0.435     0.606        23
-       PHONE      0.909     0.886     0.897       158
+       PHONE      0.947     0.894     0.920       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.792     0.743     0.757    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.994     0.970     0.982     34581
+   macro avg      0.817     0.710     0.750     34581
+weighted avg      0.994     0.970     0.981     34581
 
-training: step=4250, loss=0.0061
-training: step=4300, loss=0.007
-training: step=4350, loss=0.0053
-training: step=4400, loss=0.0067
-evaliation: step=4400, f1=0.731824999284863
+training: step=3250, loss=0.0086
+training: step=3300, loss=0.0096
+training: step=3350, loss=0.0104
+training: step=3400, loss=0.0106
+evaliation: step=3400, f1=0.7624671162069713
               precision    recall  f1-score   support
 
-         AGE      0.812     0.854     0.833       390
-        DATE      0.983     0.990     0.986     19018
+         AGE      0.988     0.884     0.933       388
+        DATE      1.000     0.992     0.996     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.831     0.829     0.830      1066
-       IDNUM      0.949     0.980     0.965      1529
-    INITIALS      0.984     0.747     0.849        83
+    HOSPITAL      0.938     0.875     0.906      1063
+       IDNUM      0.994     0.987     0.991      1544
+    INITIALS      0.985     0.753     0.853        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.908     0.853     0.880      1266
-        NAME      0.976     0.984     0.980     11005
-       OTHER      1.000     0.174     0.296        23
-       PHONE      0.909     0.886     0.897       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.796     0.715     0.732    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=4450, loss=0.0094
-training: step=4500, loss=0.0068
-training: step=4550, loss=0.0058
-training: step=4600, loss=0.0076
-evaliation: step=4600, f1=0.7146715927423823
-              precision    recall  f1-score   support
-
-         AGE      0.879     0.841     0.860       390
-        DATE      0.984     0.989     0.987     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.878     0.812     0.844      1066
-       IDNUM      0.953     0.973     0.963      1529
-    INITIALS      0.984     0.747     0.849        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.927     0.878     0.902      1266
-        NAME      0.974     0.984     0.979     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.891     0.930     0.910       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.728     0.704     0.715    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=4650, loss=0.0084
-training: step=4700, loss=0.006
-training: step=4750, loss=0.0061
-training: step=4800, loss=0.0075
-evaliation: step=4800, f1=0.7132005836568774
-              precision    recall  f1-score   support
-
-         AGE      0.880     0.846     0.863       390
-        DATE      0.985     0.989     0.987     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.824     0.858     0.841      1066
-       IDNUM      0.955     0.975     0.965      1529
-    INITIALS      0.984     0.747     0.849        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.918     0.870     0.894      1266
-        NAME      0.979     0.978     0.978     11005
-       OTHER      0.000     0.000     0.000        23
-       PHONE      0.909     0.886     0.897       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.725     0.704     0.713    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=4850, loss=0.0053
-training: step=4900, loss=0.0054
-training: step=4950, loss=0.0088
-training: step=5000, loss=0.0061
-evaliation: step=5000, f1=0.7581165205643471
-              precision    recall  f1-score   support
-
-         AGE      0.809     0.869     0.838       390
-        DATE      0.988     0.989     0.989     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.825     0.838     0.831      1066
-       IDNUM      0.955     0.966     0.960      1529
-    INITIALS      1.000     0.747     0.855        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.911     0.893     0.902      1266
-        NAME      0.976     0.981     0.979     11005
+    LOCATION      0.967     0.892     0.928      1245
+        NAME      0.999     0.981     0.990     11029
        OTHER      1.000     0.435     0.606        23
-       PHONE      0.909     0.886     0.897       158
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.798     0.739     0.758    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.979     0.987     34581
+   macro avg      0.818     0.729     0.762     34581
+weighted avg      0.996     0.979     0.987     34581
 
-training: step=5050, loss=0.0064
-training: step=5100, loss=0.0054
-training: step=5150, loss=0.0045
-training: step=5200, loss=0.0051
-evaliation: step=5200, f1=0.7588469501830516
+training: step=3450, loss=0.0111
+training: step=3500, loss=0.0069
+training: step=3550, loss=0.009
+training: step=3600, loss=0.0077
+evaliation: step=3600, f1=0.758294001133752
               precision    recall  f1-score   support
 
-         AGE      0.870     0.826     0.847       390
-        DATE      0.989     0.989     0.989     19018
+         AGE      0.989     0.897     0.941       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.796     0.847     0.821      1066
-       IDNUM      0.939     0.989     0.963      1529
-    INITIALS      0.984     0.735     0.841        83
+    HOSPITAL      0.887     0.877     0.882      1063
+       IDNUM      0.994     0.975     0.985      1544
+    INITIALS      1.000     0.753     0.859        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.904     0.896     0.900      1266
-        NAME      0.975     0.981     0.978     11005
+    LOCATION      0.990     0.820     0.897      1245
+        NAME      0.999     0.978     0.988     11029
        OTHER      1.000     0.435     0.606        23
-       PHONE      0.913     0.930     0.922       158
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.798     0.740     0.759    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.995     0.974     0.984     34581
+   macro avg      0.817     0.722     0.758     34581
+weighted avg      0.995     0.974     0.984     34581
 
-training: step=5250, loss=0.0053
-training: step=5300, loss=0.006
-training: step=5350, loss=0.0046
-training: step=5400, loss=0.006
-evaliation: step=5400, f1=0.7597846515237298
+training: step=3650, loss=0.0075
+training: step=3700, loss=0.0052
+training: step=3750, loss=0.0076
+training: step=3800, loss=0.0094
+evaliation: step=3800, f1=0.7604329765519516
               precision    recall  f1-score   support
 
-         AGE      0.879     0.856     0.868       390
-        DATE      0.987     0.990     0.988     19018
+         AGE      0.988     0.858     0.919       388
+        DATE      1.000     0.989     0.994     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.856     0.859     0.858      1066
-       IDNUM      0.948     0.978     0.963      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.951     0.856     0.901      1063
+       IDNUM      0.994     0.991     0.993      1544
+    INITIALS      0.985     0.753     0.853        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.895     0.918     0.906      1266
-        NAME      0.978     0.981     0.980     11005
-       OTHER      0.714     0.435     0.541        23
-       PHONE      0.913     0.930     0.922       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
-
-    accuracy                          0.996    363542
-   macro avg      0.782     0.746     0.760    363542
-weighted avg      0.996     0.996     0.996    363542
-
-training: step=5450, loss=0.0062
-training: step=5500, loss=0.0058
-training: step=5550, loss=0.0056
-training: step=5600, loss=0.0048
-evaliation: step=5600, f1=0.7405856160844884
-              precision    recall  f1-score   support
-
-         AGE      0.787     0.872     0.827       390
-        DATE      0.983     0.991     0.987     19018
-       EMAIL      0.865     1.000     0.928        32
-    HOSPITAL      0.769     0.894     0.827      1066
-       IDNUM      0.937     0.989     0.962      1529
-    INITIALS      0.939     0.747     0.832        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.862     0.937     0.898      1266
-        NAME      0.978     0.982     0.980     11005
-       OTHER      0.458     0.478     0.468        23
-       PHONE      0.913     0.930     0.922       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.997    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.730     0.755     0.741    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=5650, loss=0.0059
-training: step=5700, loss=0.0044
-training: step=5750, loss=0.0039
-training: step=5800, loss=0.0055
-evaliation: step=5800, f1=0.7412790513047665
-              precision    recall  f1-score   support
-
-         AGE      0.857     0.844     0.850       390
-        DATE      0.986     0.989     0.988     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.807     0.881     0.842      1066
-       IDNUM      0.947     0.978     0.962      1529
-    INITIALS      1.000     0.747     0.855        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.905     0.904     0.904      1266
-        NAME      0.981     0.980     0.980     11005
-       OTHER      0.275     0.478     0.349        23
-       PHONE      0.886     0.930     0.907       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.742     0.748     0.741    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=5850, loss=0.0026
-training: step=5900, loss=0.005
-training: step=5950, loss=0.0042
-training: step=6000, loss=0.004
-evaliation: step=6000, f1=0.7482302936084673
-              precision    recall  f1-score   support
-
-         AGE      0.853     0.874     0.863       390
-        DATE      0.988     0.990     0.989     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.841     0.831     0.836      1066
-       IDNUM      0.948     0.978     0.963      1529
-    INITIALS      0.984     0.747     0.849        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.878     0.919     0.898      1266
-        NAME      0.972     0.986     0.979     11005
-       OTHER      0.455     0.435     0.444        23
-       PHONE      0.886     0.930     0.907       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.754     0.745     0.748    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=6050, loss=0.0031
-training: step=6100, loss=0.0044
-training: step=6150, loss=0.0043
-training: step=6200, loss=0.0036
-evaliation: step=6200, f1=0.7519470366128277
-              precision    recall  f1-score   support
-
-         AGE      0.873     0.844     0.858       390
-        DATE      0.985     0.990     0.987     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.819     0.846     0.832      1066
-       IDNUM      0.945     0.984     0.964      1529
-    INITIALS      1.000     0.747     0.855        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.883     0.922     0.902      1266
-        NAME      0.978     0.982     0.980     11005
-       OTHER      0.556     0.435     0.488        23
-       PHONE      0.891     0.930     0.910       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
-
-    accuracy                          0.995    363542
-   macro avg      0.764     0.744     0.752    363542
-weighted avg      0.995     0.995     0.995    363542
-
-training: step=6250, loss=0.0037
-training: step=6300, loss=0.0041
-training: step=6350, loss=0.0061
-training: step=6400, loss=0.0046
-evaliation: step=6400, f1=0.7601009148112473
-              precision    recall  f1-score   support
-
-         AGE      0.865     0.856     0.861       390
-        DATE      0.988     0.989     0.989     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.845     0.818     0.831      1066
-       IDNUM      0.955     0.968     0.962      1529
-    INITIALS      1.000     0.747     0.855        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.898     0.906     0.902      1266
-        NAME      0.978     0.983     0.980     11005
+    LOCATION      0.954     0.896     0.924      1245
+        NAME      0.998     0.980     0.989     11029
        OTHER      1.000     0.435     0.606        23
-       PHONE      0.909     0.886     0.897       158
+       PHONE      0.950     0.944     0.947       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.803     0.737     0.760    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.996     0.976     0.986     34581
+   macro avg      0.818     0.725     0.760     34581
+weighted avg      0.995     0.976     0.985     34581
 
-training: step=6450, loss=0.0034
-training: step=6500, loss=0.0049
-training: step=6550, loss=0.0041
-training: step=6600, loss=0.0036
-evaliation: step=6600, f1=0.7573311699140809
+training: step=3850, loss=0.0083
+training: step=3900, loss=0.0066
+training: step=3950, loss=0.0071
+training: step=4000, loss=0.0089
+evaliation: step=4000, f1=0.7637640257343722
               precision    recall  f1-score   support
 
-         AGE      0.843     0.841     0.842       390
-        DATE      0.990     0.989     0.989     19018
+         AGE      0.988     0.843     0.910       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.889     0.779     0.830      1066
-       IDNUM      0.955     0.968     0.961      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.909     0.888     0.899      1063
+       IDNUM      0.999     0.963     0.981      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.921     0.889     0.905      1266
-        NAME      0.980     0.981     0.981     11005
-       OTHER      1.000     0.391     0.562        23
-       PHONE      0.913     0.930     0.922       158
+    LOCATION      0.967     0.871     0.916      1245
+        NAME      0.999     0.976     0.987     11029
+       OTHER      0.923     0.522     0.667        23
+       PHONE      0.951     0.969     0.960       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.997     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.807     0.732     0.757    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.995     0.974     0.985     34581
+   macro avg      0.811     0.730     0.764     34581
+weighted avg      0.995     0.974     0.984     34581
 
-training: step=6650, loss=0.0026
-training: step=6700, loss=0.0034
-training: step=6750, loss=0.0022
-training: step=6800, loss=0.0035
-evaliation: step=6800, f1=0.7576967242490371
+training: step=4050, loss=0.0079
+training: step=4100, loss=0.0109
+training: step=4150, loss=0.0086
+training: step=4200, loss=0.0075
+evaliation: step=4200, f1=0.7577902370572817
               precision    recall  f1-score   support
 
-         AGE      0.883     0.833     0.858       390
-        DATE      0.989     0.990     0.989     19018
+         AGE      0.988     0.869     0.925       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.832     0.820     0.826      1066
-       IDNUM      0.955     0.971     0.963      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.928     0.856     0.890      1063
+       IDNUM      0.993     0.990     0.992      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.877     0.919     0.897      1266
-        NAME      0.976     0.982     0.979     11005
+    LOCATION      0.969     0.862     0.912      1245
+        NAME      0.999     0.981     0.990     11029
        OTHER      1.000     0.435     0.606        23
-       PHONE      0.906     0.854     0.879       158
+       PHONE      0.921     0.944     0.932       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.801     0.735     0.758    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.996     0.976     0.986     34581
+   macro avg      0.816     0.722     0.758     34581
+weighted avg      0.995     0.976     0.985     34581
 
-training: step=6850, loss=0.0029
-training: step=6900, loss=0.0031
-training: step=6950, loss=0.0033
-training: step=7000, loss=0.0028
-evaliation: step=7000, f1=0.7490659068532395
+training: step=4250, loss=0.0071
+training: step=4300, loss=0.0081
+training: step=4350, loss=0.0061
+training: step=4400, loss=0.0062
+evaliation: step=4400, f1=0.7620638501993761
               precision    recall  f1-score   support
 
-         AGE      0.876     0.854     0.865       390
-        DATE      0.986     0.990     0.988     19018
+         AGE      0.989     0.887     0.935       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.853     0.820     0.836      1066
-       IDNUM      0.954     0.973     0.964      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.929     0.879     0.903      1063
+       IDNUM      0.994     0.990     0.992      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.889     0.914     0.901      1266
-        NAME      0.974     0.984     0.979     11005
-       OTHER      0.455     0.435     0.444        23
-       PHONE      0.911     0.905     0.908       158
+    LOCATION      0.961     0.896     0.928      1245
+        NAME      0.998     0.983     0.991     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.938     0.943       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.761     0.740     0.749    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.995     0.979     0.987     34581
+   macro avg      0.818     0.728     0.762     34581
+weighted avg      0.995     0.979     0.987     34581
+
+training: step=4450, loss=0.0047
+training: step=4500, loss=0.0056
+training: step=4550, loss=0.0061
+training: step=4600, loss=0.0088
+evaliation: step=4600, f1=0.7549712730436244
+              precision    recall  f1-score   support
+
+         AGE      0.991     0.809     0.891       388
+        DATE      1.000     0.991     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.953     0.826     0.885      1063
+       IDNUM      0.994     0.986     0.990      1544
+    INITIALS      1.000     0.729     0.844        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.950     0.888     0.918      1245
+        NAME      0.999     0.977     0.988     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.974     0.985     34581
+   macro avg      0.820     0.715     0.755     34581
+weighted avg      0.995     0.974     0.984     34581
+
+training: step=4650, loss=0.0062
+training: step=4700, loss=0.0081
+training: step=4750, loss=0.0068
+training: step=4800, loss=0.0093
+evaliation: step=4800, f1=0.7579950350616556
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.832     0.903       388
+        DATE      1.000     0.989     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.953     0.841     0.894      1063
+       IDNUM      0.994     0.987     0.991      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.936     0.901     0.918      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.846     0.478     0.611        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.976     0.985     34581
+   macro avg      0.805     0.724     0.758     34581
+weighted avg      0.995     0.976     0.985     34581
+
+training: step=4850, loss=0.0064
+training: step=4900, loss=0.0049
+training: step=4950, loss=0.0071
+training: step=5000, loss=0.0075
+evaliation: step=5000, f1=0.7582813789638161
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.832     0.903       388
+        DATE      1.000     0.991     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.937     0.859     0.896      1063
+       IDNUM      0.995     0.986     0.991      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.934     0.900     0.917      1245
+        NAME      0.999     0.978     0.988     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.976     0.985     34581
+   macro avg      0.817     0.723     0.758     34581
+weighted avg      0.995     0.976     0.985     34581
+
+training: step=5050, loss=0.0053
+training: step=5100, loss=0.0057
+training: step=5150, loss=0.0059
+training: step=5200, loss=0.0047
+evaliation: step=5200, f1=0.7560895870218984
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.825     0.899       388
+        DATE      0.999     0.990     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.946     0.843     0.892      1063
+       IDNUM      0.995     0.991     0.993      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.956     0.884     0.918      1245
+        NAME      0.999     0.981     0.990     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.948     0.912     0.930       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.975     0.985     34581
+   macro avg      0.819     0.717     0.756     34581
+weighted avg      0.995     0.975     0.985     34581
+
+training: step=5250, loss=0.0048
+training: step=5300, loss=0.0033
+training: step=5350, loss=0.0047
+training: step=5400, loss=0.0049
+evaliation: step=5400, f1=0.7584693861059427
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.858     0.919       388
+        DATE      1.000     0.990     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.954     0.823     0.884      1063
+       IDNUM      0.995     0.991     0.993      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.939     0.889     0.913      1245
+        NAME      0.999     0.981     0.990     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.976     0.985     34581
+   macro avg      0.819     0.721     0.758     34581
+weighted avg      0.995     0.976     0.985     34581
+
+training: step=5450, loss=0.0044
+training: step=5500, loss=0.0046
+training: step=5550, loss=0.0045
+training: step=5600, loss=0.0058
+evaliation: step=5600, f1=0.7558163278392334
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.830     0.902       388
+        DATE      1.000     0.987     0.993     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.945     0.839     0.889      1063
+       IDNUM      0.994     0.986     0.990      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.957     0.865     0.909      1245
+        NAME      0.999     0.980     0.989     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.931     0.940       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.973     0.984     34581
+   macro avg      0.819     0.716     0.756     34581
+weighted avg      0.995     0.973     0.984     34581
+
+training: step=5650, loss=0.0053
+training: step=5700, loss=0.0046
+training: step=5750, loss=0.0041
+training: step=5800, loss=0.0064
+evaliation: step=5800, f1=0.7591910674158163
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.866     0.923       388
+        DATE      1.000     0.989     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.936     0.857     0.895      1063
+       IDNUM      0.994     0.984     0.989      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.962     0.863     0.909      1245
+        NAME      0.999     0.981     0.990     11029
+       OTHER      0.857     0.522     0.649        23
+       PHONE      0.945     0.863     0.902       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.975     0.985     34581
+   macro avg      0.807     0.723     0.759     34581
+weighted avg      0.995     0.975     0.985     34581
+
+training: step=5850, loss=0.0033
+training: step=5900, loss=0.0053
+training: step=5950, loss=0.0051
+training: step=6000, loss=0.0053
+evaliation: step=6000, f1=0.7574305706338745
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.874     0.927       388
+        DATE      0.999     0.992     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.943     0.780     0.854      1063
+       IDNUM      0.995     0.980     0.987      1544
+    INITIALS      1.000     0.729     0.844        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.947     0.884     0.914      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      1.000     0.478     0.647        23
+       PHONE      0.948     0.912     0.930       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.975     0.985     34581
+   macro avg      0.818     0.718     0.757     34581
+weighted avg      0.995     0.975     0.984     34581
+
+training: step=6050, loss=0.0054
+training: step=6100, loss=0.004
+training: step=6150, loss=0.0046
+training: step=6200, loss=0.004
+evaliation: step=6200, f1=0.7644808418881098
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.853     0.916       388
+        DATE      1.000     0.992     0.996     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.914     0.870     0.892      1063
+       IDNUM      0.994     0.991     0.993      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.970     0.851     0.907      1245
+        NAME      0.998     0.984     0.991     11029
+       OTHER      1.000     0.522     0.686        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.978     0.986     34581
+   macro avg      0.818     0.728     0.764     34581
+weighted avg      0.995     0.978     0.986     34581
+
+training: step=6250, loss=0.0039
+training: step=6300, loss=0.0039
+training: step=6350, loss=0.0036
+training: step=6400, loss=0.0041
+evaliation: step=6400, f1=0.7595255622020667
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.853     0.916       388
+        DATE      0.999     0.991     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.951     0.859     0.903      1063
+       IDNUM      0.995     0.974     0.984      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.948     0.894     0.920      1245
+        NAME      0.998     0.984     0.991     11029
+       OTHER      0.923     0.522     0.667        23
+       PHONE      0.944     0.838     0.887       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.977     0.986     34581
+   macro avg      0.812     0.721     0.760     34581
+weighted avg      0.995     0.977     0.986     34581
+
+training: step=6450, loss=0.0045
+training: step=6500, loss=0.0039
+training: step=6550, loss=0.0038
+training: step=6600, loss=0.0033
+evaliation: step=6600, f1=0.7563169344235253
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.835     0.905       388
+        DATE      1.000     0.992     0.996     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.950     0.833     0.887      1063
+       IDNUM      0.994     0.991     0.993      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.946     0.878     0.911      1245
+        NAME      0.999     0.982     0.990     11029
+       OTHER      1.000     0.435     0.606        23
+       PHONE      0.949     0.925     0.937       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.977     0.986     34581
+   macro avg      0.819     0.718     0.756     34581
+weighted avg      0.995     0.977     0.985     34581
+
+training: step=6650, loss=0.004
+training: step=6700, loss=0.003
+training: step=6750, loss=0.004
+training: step=6800, loss=0.0046
+evaliation: step=6800, f1=0.7629041112973081
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.861     0.920       388
+        DATE      1.000     0.992     0.996     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.952     0.837     0.891      1063
+       IDNUM      0.994     0.984     0.989      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.946     0.896     0.920      1245
+        NAME      0.998     0.984     0.991     11029
+       OTHER      0.857     0.522     0.649        23
+       PHONE      0.949     0.931     0.940       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.978     0.987     34581
+   macro avg      0.807     0.730     0.763     34581
+weighted avg      0.995     0.978     0.986     34581
+
+training: step=6850, loss=0.003
+training: step=6900, loss=0.0049
+training: step=6950, loss=0.0029
+training: step=7000, loss=0.0022
+evaliation: step=7000, f1=0.7581133742186897
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.820     0.896       388
+        DATE      1.000     0.991     0.996     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.940     0.863     0.899      1063
+       IDNUM      0.994     0.990     0.992      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.953     0.873     0.911      1245
+        NAME      0.999     0.981     0.990     11029
+       OTHER      0.846     0.478     0.611        23
+       PHONE      0.949     0.938     0.943       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.976     0.986     34581
+   macro avg      0.806     0.724     0.758     34581
+weighted avg      0.995     0.976     0.985     34581
 
 training: step=7050, loss=0.0036
-training: step=7100, loss=0.0042
-training: step=7150, loss=0.0035
-training: step=7200, loss=0.0051
-evaliation: step=7200, f1=0.7492322355953256
+training: step=7100, loss=0.0035
+training: step=7150, loss=0.0039
+training: step=7200, loss=0.0031
+evaliation: step=7200, f1=0.7500919905965944
               precision    recall  f1-score   support
 
-         AGE      0.844     0.859     0.851       390
-        DATE      0.985     0.990     0.988     19018
+         AGE      0.988     0.840     0.908       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.826     0.841     0.833      1066
-       IDNUM      0.955     0.977     0.966      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.943     0.844     0.891      1063
+       IDNUM      0.994     0.981     0.987      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.904     0.905     0.905      1266
-        NAME      0.971     0.985     0.978     11005
-       OTHER      0.455     0.435     0.444        23
-       PHONE      0.913     0.930     0.922       158
+    LOCATION      0.953     0.877     0.913      1245
+        NAME      0.998     0.980     0.989     11029
+       OTHER      0.667     0.435     0.526        23
+       PHONE      0.949     0.931     0.940       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.995    363542
-   macro avg      0.758     0.744     0.749    363542
-weighted avg      0.995     0.995     0.995    363542
+   micro avg      0.995     0.975     0.985     34581
+   macro avg      0.791     0.718     0.750     34581
+weighted avg      0.995     0.975     0.984     34581
 
-training: step=7250, loss=0.0045
-training: step=7300, loss=0.0035
-training: step=7350, loss=0.0022
-training: step=7400, loss=0.0033
-evaliation: step=7400, f1=0.7579143543495979
+training: step=7250, loss=0.0044
+training: step=7300, loss=0.0037
+training: step=7350, loss=0.003
+training: step=7400, loss=0.0026
+evaliation: step=7400, f1=0.7520326877353695
               precision    recall  f1-score   support
 
-         AGE      0.891     0.838     0.864       390
-        DATE      0.988     0.990     0.989     19018
+         AGE      0.988     0.822     0.897       388
+        DATE      1.000     0.990     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.836     0.838     0.837      1066
-       IDNUM      0.955     0.974     0.965      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.948     0.852     0.897      1063
+       IDNUM      0.994     0.972     0.983      1544
+    INITIALS      1.000     0.741     0.851        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.900     0.907     0.904      1266
-        NAME      0.976     0.984     0.980     11005
-       OTHER      0.714     0.435     0.541        23
-       PHONE      0.913     0.930     0.922       158
-         URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
-
-    accuracy                          0.996    363542
-   macro avg      0.782     0.742     0.758    363542
-weighted avg      0.996     0.996     0.996    363542
-
-training: step=7450, loss=0.0047
-training: step=7500, loss=0.0029
-training: step=7550, loss=0.0034
-training: step=7600, loss=0.0028
-evaliation: step=7600, f1=0.7583962064336235
-              precision    recall  f1-score   support
-
-         AGE      0.843     0.856     0.850       390
-        DATE      0.989     0.990     0.990     19018
-       EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.849     0.835     0.842      1066
-       IDNUM      0.950     0.978     0.964      1529
-    INITIALS      1.000     0.747     0.855        83
-   IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.895     0.915     0.905      1266
-        NAME      0.974     0.985     0.979     11005
+    LOCATION      0.956     0.873     0.913      1245
+        NAME      0.998     0.981     0.989     11029
        OTHER      0.769     0.435     0.556        23
-       PHONE      0.913     0.930     0.922       158
+       PHONE      0.949     0.938     0.943       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.783     0.744     0.758    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.996     0.974     0.985     34581
+   macro avg      0.800     0.717     0.752     34581
+weighted avg      0.995     0.974     0.984     34581
 
-training: step=7650, loss=0.0032
-training: step=7700, loss=0.0022
+training: step=7450, loss=0.0033
+training: step=7500, loss=0.003
+training: step=7550, loss=0.0031
+training: step=7600, loss=0.0029
+evaliation: step=7600, f1=0.7545121546695074
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.820     0.896       388
+        DATE      1.000     0.988     0.994     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.961     0.825     0.888      1063
+       IDNUM      0.994     0.979     0.986      1544
+    INITIALS      1.000     0.741     0.851        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.944     0.887     0.915      1245
+        NAME      0.998     0.981     0.990     11029
+       OTHER      0.786     0.478     0.595        23
+       PHONE      0.949     0.931     0.940       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.996     0.974     0.985     34581
+   macro avg      0.802     0.719     0.755     34581
+weighted avg      0.995     0.974     0.984     34581
+
+training: step=7650, loss=0.0019
+training: step=7700, loss=0.0026
 training: step=7750, loss=0.0026
-training: step=7800, loss=0.0034
-evaliation: step=7800, f1=0.758014648360239
+training: step=7800, loss=0.0027
+evaliation: step=7800, f1=0.7572525920978355
               precision    recall  f1-score   support
 
-         AGE      0.887     0.828     0.857       390
-        DATE      0.989     0.989     0.989     19018
+         AGE      0.988     0.840     0.908       388
+        DATE      1.000     0.989     0.994     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.836     0.831     0.833      1066
-       IDNUM      0.955     0.973     0.964      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.951     0.843     0.894      1063
+       IDNUM      0.994     0.979     0.987      1544
+    INITIALS      1.000     0.753     0.859        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.900     0.902     0.901      1266
-        NAME      0.976     0.984     0.980     11005
-       OTHER      0.769     0.435     0.556        23
-       PHONE      0.913     0.930     0.922       158
+    LOCATION      0.952     0.884     0.917      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.786     0.478     0.595        23
+       PHONE      0.949     0.938     0.943       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.786     0.740     0.758    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.996     0.975     0.985     34581
+   macro avg      0.802     0.724     0.757     34581
+weighted avg      0.995     0.975     0.985     34581
 
 training: step=7850, loss=0.003
-training: step=7900, loss=0.0025
-training: step=7950, loss=0.0021
-training: step=8000, loss=0.0019
-evaliation: step=8000, f1=0.754625037395411
+training: step=7900, loss=0.0019
+training: step=7950, loss=0.0028
+training: step=8000, loss=0.0031
+evaliation: step=8000, f1=0.754312801649608
               precision    recall  f1-score   support
 
-         AGE      0.866     0.859     0.862       390
-        DATE      0.988     0.990     0.989     19018
+         AGE      0.988     0.845     0.911       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.816     0.856     0.836      1066
-       IDNUM      0.953     0.976     0.964      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.939     0.853     0.894      1063
+       IDNUM      0.994     0.977     0.985      1544
+    INITIALS      1.000     0.753     0.859        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.894     0.917     0.905      1266
-        NAME      0.974     0.984     0.979     11005
-       OTHER      0.588     0.435     0.500        23
-       PHONE      0.913     0.930     0.922       158
+    LOCATION      0.959     0.871     0.913      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.688     0.478     0.564        23
+       PHONE      0.949     0.931     0.940       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.997     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.768     0.745     0.755    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.995     0.976     0.986     34581
+   macro avg      0.793     0.723     0.754     34581
+weighted avg      0.995     0.976     0.985     34581
 
-training: step=8050, loss=0.0018
-training: step=8100, loss=0.0031
-training: step=8150, loss=0.0027
-training: step=8200, loss=0.0039
-evaliation: step=8200, f1=0.7546354723653235
+training: step=8050, loss=0.0026
+training: step=8100, loss=0.0025
+training: step=8150, loss=0.0031
+training: step=8200, loss=0.0032
+evaliation: step=8200, f1=0.7556455155552014
               precision    recall  f1-score   support
 
-         AGE      0.874     0.854     0.864       390
-        DATE      0.988     0.990     0.989     19018
+         AGE      0.988     0.840     0.908       388
+        DATE      1.000     0.991     0.995     19006
        EMAIL      1.000     1.000     1.000        32
-    HOSPITAL      0.832     0.839     0.835      1066
-       IDNUM      0.955     0.975     0.965      1529
-    INITIALS      1.000     0.747     0.855        83
+    HOSPITAL      0.952     0.839     0.892      1063
+       IDNUM      0.994     0.975     0.985      1544
+    INITIALS      1.000     0.753     0.859        85
    IPADDRESS      0.000     0.000     0.000         0
-    LOCATION      0.895     0.912     0.903      1266
-        NAME      0.975     0.984     0.979     11005
-       OTHER      0.588     0.435     0.500        23
-       PHONE      0.913     0.930     0.922       158
+    LOCATION      0.947     0.882     0.913      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.667     0.522     0.585        23
+       PHONE      0.949     0.931     0.940       160
          URL      0.000     0.000     0.000         6
-      NORMAL      0.998     0.998     0.998    328966
 
-    accuracy                          0.996    363542
-   macro avg      0.771     0.743     0.755    363542
-weighted avg      0.996     0.996     0.996    363542
+   micro avg      0.995     0.976     0.985     34581
+   macro avg      0.791     0.726     0.756     34581
+weighted avg      0.995     0.976     0.985     34581
 
-training: step=8250, loss=0.0027
+training: step=8250, loss=0.003
+training: step=8300, loss=0.0024
+training: step=8350, loss=0.003
+training: step=8400, loss=0.0026
+evaliation: step=8400, f1=0.7530677751370405
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.825     0.899       388
+        DATE      1.000     0.990     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.960     0.831     0.891      1063
+       IDNUM      0.994     0.973     0.984      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.946     0.887     0.915      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.688     0.478     0.564        23
+       PHONE      0.949     0.931     0.940       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.975     0.985     34581
+   macro avg      0.793     0.721     0.753     34581
+weighted avg      0.995     0.975     0.985     34581
+
+training: step=8450, loss=0.0024
+training: step=8500, loss=0.0026
+training: step=8550, loss=0.0019
+training: step=8600, loss=0.0023
+evaliation: step=8600, f1=0.7534124716668842
+              precision    recall  f1-score   support
+
+         AGE      0.988     0.827     0.900       388
+        DATE      1.000     0.991     0.995     19006
+       EMAIL      1.000     1.000     1.000        32
+    HOSPITAL      0.960     0.835     0.893      1063
+       IDNUM      0.994     0.973     0.984      1544
+    INITIALS      1.000     0.753     0.859        85
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.944     0.888     0.915      1245
+        NAME      0.998     0.982     0.990     11029
+       OTHER      0.688     0.478     0.564        23
+       PHONE      0.949     0.931     0.940       160
+         URL      0.000     0.000     0.000         6
+
+   micro avg      0.995     0.975     0.985     34581
+   macro avg      0.793     0.722     0.753     34581
+weighted avg      0.995     0.975     0.985     34581
+
