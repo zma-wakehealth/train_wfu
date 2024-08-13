@@ -1,9 +1,10 @@
 .venv
 .vscode
 logs*
-test*
+test*/
 wfudata*
 .ipynb_checkpoints
 __pycache__
 *.csv
 checkpoint-*
+papers/
