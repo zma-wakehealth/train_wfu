@@ -7,3 +7,4 @@ wfudata*
 __pycache__
 *.csv
 checkpoint-*
+requirements.txt
