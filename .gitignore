@@ -9,3 +9,4 @@ __pycache__
 checkpoint-*
 requirements.txt
 papers/
+*.tar

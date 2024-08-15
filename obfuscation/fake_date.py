@@ -80,8 +80,12 @@ class FakeDate():
                 month = '%' + next(months)
         if util_parsed_1.day == util_parsed_2.day:
             day = '%d'
+        
+        # fix some special cases
         if day == '' and month == '' and year != '':
             year = '%Y'
+        if day == '' and year == '' and month != '':
+            month = '%B'
         
         if month and (month[-1] == 'B' or month[-1] == 'b'):
             fmt_date = ' '.join([x for x in [month, day] if x != ''])
