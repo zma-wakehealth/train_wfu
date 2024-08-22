@@ -4,8 +4,11 @@ logs*
 test*/
 wfudata*
 .ipynb_checkpoints
+.env
 __pycache__
 *.csv
 checkpoint-*
 requirements.txt
 papers/
+wfu_model*/
+*.tar

@@ -4,7 +4,7 @@ import re
 from collections import Counter
 
 pat1 = re.compile(r'[ |,|$|\n|\(|\)]+')
-credentials = ['dr', 'drs', 'ms', 'md', 'phd', 'mr', 'jr', 'sr', 'pa', 'do', 'phd', 'ii', 'iii', 'iv', 'v', '&quot;']
+credentials = ['dr', 'drs', 'ms', 'md', 'phd', 'mr', 'jr', 'sr', 'pa', 'do', 'phd', 'ii', 'iii', 'iv', 'v', '&quot;', 'rn', 'cde']
 
 def get_fmt(name):
     prev_end = 0
@@ -120,7 +120,7 @@ def print_fake_name(parts, fmts, fake_first_names, fake_last_name):
     output = ''
     for part, fmt in zip(parts, fmts):
         if fmt in 'C' or fmt in 'S':
-            output += part
+            output += fix_case(part, part)
         elif fmt == 'l':
             output += fix_case(part, fake_last_name[0])
             if part[-1] == '.':  output += '.'
