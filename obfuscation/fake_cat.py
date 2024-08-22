@@ -18,7 +18,7 @@ class FakeCat():
     def parse_and_replace(self, text):
         if self.new_note:
             self.mapping = {}
-        text = text.strip()
+        text = text.strip().lower()
         if text not in self.mapping:
             self.mapping[text] = next(self.samples)
         return self.mapping[text]
