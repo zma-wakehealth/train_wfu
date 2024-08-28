@@ -1,0 +1,18 @@
+2024-08-26 09:24:10.118752
+2024-08-26 09:33:04.390782
+[{'entity_group': 'NAME', 'score': 0.99896145, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.99981946, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.99982935, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.99982643, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
+2024-08-26 09:33:04.858322
+2024-08-26 09:40:04.396764
+[{'entity_group': 'NAME', 'score': 0.99896616, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.99981934, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.99982935, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.9998263, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
+2024-08-26 09:40:04.720173
+2024-08-26 09:46:48.630887
+[{'entity_group': 'NAME', 'score': 0.99896055, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.9998197, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.9998291, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.999826, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
+2024-08-26 09:46:48.783932
+2024-08-26 09:55:04.930338
+[{'entity_group': 'NAME', 'score': 0.99370176, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.9997476, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.9998352, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.9997075, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
+2024-08-26 09:55:05.236108
+2024-08-26 10:02:07.333018
+[{'entity_group': 'NAME', 'score': 0.9936793, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.9997476, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.9998351, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.99970746, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
+2024-08-26 10:02:07.556230
+2024-08-26 10:08:56.296171
+[{'entity_group': 'NAME', 'score': 0.9937102, 'word': 'tonya latrice covington', 'start': 21, 'end': 44}, {'entity_group': 'NAME', 'score': 0.99974734, 'word': 'houseknecht', 'start': 146, 'end': 157}, {'entity_group': 'NAME', 'score': 0.99983495, 'word': 'doris r brown', 'start': 361, 'end': 374}, {'entity_group': 'DATE', 'score': 0.99970776, 'word': '3 / 2 / 2015 1 : 14 pm', 'start': 379, 'end': 396}]
