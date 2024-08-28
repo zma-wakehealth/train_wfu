@@ -2,7 +2,6 @@ from transformers import AutoTokenizer
 from transformers import AutoModelForTokenClassification
 from optimum.onnxruntime import ORTModelForTokenClassification
 from transformers import TokenClassificationPipeline
-from onnxconverter_common import float16
 from optimum.onnxruntime import ORTOptimizer
 from optimum.onnxruntime.configuration import OptimizationConfig
 import onnxruntime
@@ -37,7 +36,7 @@ def load_onnx_model(onnx_model_path, onnx_model_name, num_threads=4, device_id=0
 def test(model, tokenizer, device_id, all_texts, batch_size):
     clf = TokenClassificationPipeline(model=model, tokenizer=tokenizer, device=device_id)
     print(datetime.now())
-    results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=16)
+    results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=batch_size)
     print(datetime.now())
     print(results[4])
     return results
@@ -49,8 +48,8 @@ if (__name__ == '__main__'):
     distill_onnx_path = distill_model_path + '-onnx'
     device_id = 0
 
-    # optimize_model(original_model_path, original_onnx_path)
-    # optimize_model(distill_model_path, distill_onnx_path)
+    #optimize_model(original_model_path, original_onnx_path)
+    #optimize_model(distill_model_path, distill_onnx_path)
 
     with open('actual_note_test.txt', 'r') as fid:
         line = fid.read()
