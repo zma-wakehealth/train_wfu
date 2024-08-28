@@ -56,30 +56,30 @@ if (__name__ == '__main__'):
         line = fid.read()
     all_texts = line.split('---')
 
-    # test original model and the optimized version of it
-    tokenizer = AutoTokenizer.from_pretrained(original_model_path)
-    tokenizer.model_max_length = 128
-    model = AutoModelForTokenClassification.from_pretrained(original_model_path)
-    results = test(model, tokenizer, 0, all_texts, 16)
+    # # test original model and the optimized version of it
+    # tokenizer = AutoTokenizer.from_pretrained(original_model_path)
+    # tokenizer.model_max_length = 128
+    # model = AutoModelForTokenClassification.from_pretrained(original_model_path)
+    # results = test(model, tokenizer, 0, all_texts, 16)
 
-    tokenizer = AutoTokenizer.from_pretrained(original_onnx_path)
-    tokenizer.model_max_length = 128
-    model = load_onnx_model(original_onnx_path, 'model.onnx')
-    results = test(model, tokenizer, 0, all_texts, 16)
+    # tokenizer = AutoTokenizer.from_pretrained(original_onnx_path)
+    # tokenizer.model_max_length = 128
+    # model = load_onnx_model(original_onnx_path, 'model.onnx')
+    # results = test(model, tokenizer, 0, all_texts, 16)
 
-    model = load_onnx_model(original_onnx_path, 'model_optimized.onnx')
-    results = test(model, tokenizer, 0, all_texts, 16)
+    # model = load_onnx_model(original_onnx_path, 'model_optimized.onnx')
+    # results = test(model, tokenizer, 0, all_texts, 16)
 
-    # distill
-    tokenizer = AutoTokenizer.from_pretrained(distill_model_path)
-    tokenizer.model_max_length = 128
-    model = AutoModelForTokenClassification.from_pretrained(distill_model_path)
-    results = test(model, tokenizer, 0, all_texts, 16)
+    # # distill
+    # tokenizer = AutoTokenizer.from_pretrained(distill_model_path)
+    # tokenizer.model_max_length = 128
+    # model = AutoModelForTokenClassification.from_pretrained(distill_model_path)
+    # results = test(model, tokenizer, 0, all_texts, 16)
 
     tokenizer = AutoTokenizer.from_pretrained(distill_onnx_path)
     tokenizer.model_max_length = 128
-    model = load_onnx_model(distill_onnx_path, 'model.onnx')
-    results = test(model, tokenizer, 0, all_texts, 16)
+    # model = load_onnx_model(distill_onnx_path, 'model.onnx')
+    # results = test(model, tokenizer, 0, all_texts, 16)
 
     model = load_onnx_model(distill_onnx_path, 'model_optimized.onnx')
     results = test(model, tokenizer, 0, all_texts, 16)
