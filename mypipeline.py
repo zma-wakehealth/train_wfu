@@ -1,31 +1,46 @@
 from transformers import TokenClassificationPipeline
 import numpy as np
+from typing import List, Optional, Tuple, Union
+from transformers.pipelines.token_classification import AggregationStrategy 
 
-class MyTokenClassificationPipeline(TokenClassificationPipeline):
+class MyTokenClassificationPipeline_GPU(TokenClassificationPipeline):
     def postprocess(self, all_outputs, aggregation_strategy, ignore_labels=None):
         if ignore_labels is None:
             ignore_labels = ["O"]
-        all_entities = []
-        for model_outputs in all_outputs:
-            logits = model_outputs["logits"][0].numpy()
-            sentence = all_outputs[0]["sentence"]
-            input_ids = model_outputs["input_ids"][0]
-            offset_mapping = (
-                model_outputs["offset_mapping"][0] if model_outputs["offset_mapping"] is not None else None
-            )
-            special_tokens_mask = model_outputs["special_tokens_mask"][0].numpy()
+        return all_outputs
 
-            maxes = np.max(logits, axis=-1, keepdims=True)
-            shifted_exp = np.exp(logits - maxes)
-            scores = shifted_exp / shifted_exp.sum(axis=-1, keepdims=True)
-
-            all_entities.append({
-                'logits': logits,
-                'sentence': sentence,
-                'input_ids': input_ids,
-                'offset_mapping': offset_mapping,
-                'special_tokens_mask': special_tokens_mask,
-                'scores': scores
-            })
-
-        return all_entities
+class MyTokenClassificationPipeline_CPU(TokenClassificationPipeline):
+    def __init__(self, model, tokenizer):
+        self.tokenizer = tokenizer
+        self.framework = 'pt'
+        self.id2label = model.config.id2label
+    
+    def aggregate_word(self, entities: List[dict], aggregation_strategy: AggregationStrategy) -> dict:
+        word = self.tokenizer.convert_tokens_to_string([entity["word"] for entity in entities])
+        if aggregation_strategy == AggregationStrategy.FIRST:
+            scores = entities[0]["scores"]
+            idx = scores.argmax()
+            score = scores[idx]
+            entity = self.id2label[idx]
+        elif aggregation_strategy == AggregationStrategy.MAX:
+            max_entity = max(entities, key=lambda entity: entity["scores"].max())
+            scores = max_entity["scores"]
+            idx = scores.argmax()
+            score = scores[idx]
+            entity = self.id2label[idx]
+        elif aggregation_strategy == AggregationStrategy.AVERAGE:
+            scores = np.stack([entity["scores"] for entity in entities])
+            average_scores = np.nanmean(scores, axis=0)
+            entity_idx = average_scores.argmax()
+            entity = self.id2label[entity_idx]
+            score = average_scores[entity_idx]
+        else:
+            raise ValueError("Invalid aggregation_strategy")
+        new_entity = {
+            "entity": entity,
+            "score": score,
+            "word": word,
+            "start": entities[0]["start"],
+            "end": entities[-1]["end"],
+        }
+        return new_entity

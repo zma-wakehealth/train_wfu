@@ -1,88 +1,57 @@
-import multiprocessing
-from multiprocessing import Process
-import os
-import time
-from datetime import datetime
-from multiprocessing.pool import Pool
-from transformers import AutoTokenizer
-from transformers import AutoModelForTokenClassification
-# from optimum.onnxruntime import ORTModelForTokenClassification
+from mypipeline import MyTokenClassificationPipeline_GPU, MyTokenClassificationPipeline_CPU
+from optimum.onnxruntime import ORTModelForTokenClassification
 from transformers import TokenClassificationPipeline
+from transformers import AutoTokenizer
+import onnxruntime
+from transformers.pipelines.token_classification import AggregationStrategy
+from multiprocessing.pool import Pool
+from functools import partial
+from datetime import datetime
 
-a = 100
+def load_onnx_model(onnx_model_path, onnx_model_name, num_threads=4, device_id=0):
+    options = onnxruntime.SessionOptions()
+    options.intra_op_num_threads = num_threads   # needs this on slurm
+    model = ORTModelForTokenClassification.from_pretrained(
+        onnx_model_path,
+        file_name = onnx_model_name,
+        session_options = options,
+        provider = 'CUDAExecutionProvider',
+        provider_options = {'device_id': device_id}   # needs this on the server for multiple gpu
+    )
+    return model
 
-def test1():
-    time.sleep(3)
-    print(f'inside test1 {datetime.now()} my id = {os.getpid()} my parent id = {os.getppid()}')
-    try:
-        print(f'I can see {a}')
-    except:
-        print('i cannot see a')
-    return (os.getppid(), os.getpid())
+if (__name__ == '__main__'):
 
-def test2(arg):
-    '''
-      pool seems require an arg
-    '''
-    time.sleep(3)
-    print(f'inside test1 {datetime.now()} my id = {os.getpid()} my parent id = {os.getppid()}')
-    try:
-        print(f'I can see {a} and with arg={arg}')
-    except:
-        print('i cannot see a')
-    return (os.getpid(), arg)
+    device_id = 0
 
-if __name__ == '__main__':
-    # multiprocessing.set_start_method('spawn')
+    with open('actual_note_test.txt', 'r') as fid:
+        line = fid.read()
+    all_texts = line.split('---')
+    all_texts = all_texts[:2000]
+    # all_texts = sorted(all_texts, key=lambda x:len(x))
 
-    # p_list = []
-    # for _ in range(3):
-    #     p_list.append(Process(target=test1))
-    
-    # # this will run them sequentially
-    # for p in p_list:
-    #     p.start()
-    #     p.join()
-    #     p.terminate()
-    #     p.close()
-    
-    # # process actually can't be reused even if i don't close them
-    # # so need to do these pieces again
-    # p_list = []
-    # for _ in range(3):
-    #     p_list.append(Process(target=test1))
+    distill_model_path = './checkpoint-9360'
+    distill_onnx_path = distill_model_path + '-onnx'
 
-    # # this will run them in parallel
-    # for p in p_list:
-    #     p.start()
-    # for p in p_list:
-    #     p.join()
-    # for p in p_list:
-    #     p.terminate()
-    #     p.close()
-
-    wfumodel = './checkpoint-8600'  # full model
-    # wfumodel = './checkpoint-9360'  # bio distill model
-    tokenizer = AutoTokenizer.from_pretrained(wfumodel)
+    tokenizer = AutoTokenizer.from_pretrained(distill_onnx_path)
     tokenizer.model_max_length = 128
-    model = AutoModelForTokenClassification.from_pretrained(wfumodel)
-    model.eval()
-    
-    # model = ORTModelForTokenClassification.from_pretrained(wfumodel, export=True, use_io_binding=False)
-    clf = TokenClassificationPipeline(model=model, tokenizer=tokenizer, device=0)
+    model = load_onnx_model(distill_onnx_path, 'model_optimized.onnx')
+    clf = MyTokenClassificationPipeline_GPU(model=model, tokenizer=tokenizer, device=device_id)
 
-    pool = Pool(processes=3)
+    print(datetime.now())
+    results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=16)
+    print(datetime.now())
 
-    # be sure to examine the output pid number, which tells how it is scheduled!
-    results = pool.map(test2, range(5))
-    print(results)
+    pool = Pool(processes=2)
+    tmp = MyTokenClassificationPipeline_CPU(model=model, tokenizer=tokenizer)
+    func = partial(tmp.postprocess, aggregation_strategy=AggregationStrategy.MAX, ignore_labels=['NORMAL'])
 
-    results = pool.imap(test2, range(5))
-    print(list(results))
+    print(datetime.now())
+    rr = pool.imap(func, results, chunksize=50)
+    rr = list(rr)
+    print(datetime.now())
 
-    # this give chunk to each processer, instead of sequentially assigning jobs
-    # this should be faster than chunksize=1
-    results = pool.imap(test2, range(10), chunksize=4) 
-    print(list(results))
-
+    # print(rr[:10])
     pool.close()
+
+    print(rr[111])
