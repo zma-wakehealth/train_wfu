@@ -27,7 +27,7 @@ if (__name__ == '__main__'):
     with open('actual_note_test.txt', 'r') as fid:
         line = fid.read()
     all_texts = line.split('---')
-    all_texts = all_texts[:2000]
+    # all_texts = all_texts[:2000]
     # all_texts = sorted(all_texts, key=lambda x:len(x))
 
     distill_model_path = './checkpoint-9360'
@@ -39,16 +39,17 @@ if (__name__ == '__main__'):
     clf = MyTokenClassificationPipeline_GPU(model=model, tokenizer=tokenizer, device=device_id)
 
     print(datetime.now())
-    results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=16)
+    #results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=16)
+    results = clf(all_texts, stride=16, ignore_labels=['NORMAL'], aggregation_strategy='max', batch_size=1024)
     print(datetime.now())
 
-    pool = Pool(processes=2)
+    pool = Pool(processes=8)
     tmp = MyTokenClassificationPipeline_CPU(model=model, tokenizer=tokenizer)
     func = partial(tmp.postprocess, aggregation_strategy=AggregationStrategy.MAX, ignore_labels=['NORMAL'])
 
     print(datetime.now())
-    rr = pool.imap(func, results, chunksize=50)
-    rr = list(rr)
+    rr = pool.map(func, results, chunksize=2000)
+    #rr = list(rr)
     print(datetime.now())
 
     # print(rr[:10])
