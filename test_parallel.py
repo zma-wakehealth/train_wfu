@@ -27,7 +27,7 @@ if (__name__ == '__main__'):
     with open('actual_note_test.txt', 'r') as fid:
         line = fid.read()
     all_texts = line.split('---')
-    all_texts = all_texts[:2000]
+    # all_texts = all_texts[:2000]
     # all_texts = sorted(all_texts, key=lambda x:len(x))
 
     distill_model_path = './checkpoint-9360'
