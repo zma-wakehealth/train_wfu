@@ -1,0 +1,105 @@
+doing ==== all_types ======
+evaliation: step=0, f1_macro=0.7568026366878443, f1_weighted=0.9858951818858284
+              precision    recall  f1-score   support
+
+         AGE      0.952     0.980     0.966       303
+        DATE      0.999     0.991     0.995     20991
+       EMAIL      0.909     1.000     0.952        10
+    HOSPITAL      0.875     0.888     0.881      1264
+       IDNUM      0.981     0.984     0.982      1351
+    INITIALS      0.957     0.971     0.964        69
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.970     0.824     0.891       915
+        NAME      0.999     0.990     0.994      8453
+       OTHER      0.000     0.000     0.000        22
+       PHONE      0.915     0.959     0.936       169
+         URL      0.467     0.583     0.519        12
+
+   micro avg      0.992     0.981     0.986     33559
+   macro avg      0.752     0.764     0.757     33559
+weighted avg      0.991     0.981     0.986     33559
+
+doing ==== H_and_P ======
+evaliation: step=0, f1_macro=0.5165601711183864, f1_weighted=0.9758613521115194
+              precision    recall  f1-score   support
+
+         AGE      0.973     0.948     0.961       116
+        DATE      0.999     0.988     0.993      5730
+       EMAIL      0.000     0.000     0.000         0
+    HOSPITAL      0.792     0.830     0.811       294
+       IDNUM      0.862     0.882     0.872        85
+    INITIALS      0.000     0.000     0.000         2
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.923     0.471     0.623       102
+        NAME      0.997     0.981     0.988      1751
+       OTHER      0.000     0.000     0.000        22
+       PHONE      0.905     1.000     0.950       124
+         URL      0.000     0.000     0.000         0
+
+   micro avg      0.986     0.970     0.978      8226
+   macro avg      0.538     0.508     0.517      8226
+weighted avg      0.984     0.970     0.976      8226
+
+doing ==== progress ======
+evaliation: step=0, f1_macro=0.7361354360252265, f1_weighted=0.9787126482066527
+              precision    recall  f1-score   support
+
+         AGE      0.922     1.000     0.959       142
+        DATE      0.999     0.986     0.992      7783
+       EMAIL      1.000     1.000     1.000        10
+    HOSPITAL      0.883     0.880     0.882       686
+       IDNUM      0.911     0.979     0.944       146
+    INITIALS      0.786     1.000     0.880        11
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.915     0.593     0.720       199
+        NAME      0.999     0.981     0.990      2499
+       OTHER      0.000     0.000     0.000         0
+       PHONE      1.000     0.829     0.907        41
+         URL      0.538     0.583     0.560        12
+
+   micro avg      0.988     0.971     0.979     11529
+   macro avg      0.746     0.736     0.736     11529
+weighted avg      0.988     0.971     0.979     11529
+
+doing ==== radiology ======
+evaliation: step=0, f1_macro=0.5775956094471093, f1_weighted=0.9987114066517526
+              precision    recall  f1-score   support
+
+         AGE      1.000     1.000     1.000        30
+        DATE      1.000     1.000     1.000      4709
+       EMAIL      0.000     0.000     0.000         0
+    HOSPITAL      1.000     0.989     0.994       174
+       IDNUM      1.000     0.889     0.941        36
+    INITIALS      1.000     1.000     1.000        56
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.000     0.000     0.000         0
+        NAME      1.000     0.992     0.996       525
+       OTHER      0.000     0.000     0.000         0
+       PHONE      1.000     1.000     1.000         4
+         URL      0.000     0.000     0.000         0
+
+   micro avg      1.000     0.998     0.999      5534
+   macro avg      0.583     0.572     0.578      5534
+weighted avg      1.000     0.998     0.999      5534
+
+doing ==== pathology ======
+evaliation: step=0, f1_macro=0.4886561250204846, f1_weighted=0.9960292646670516
+              precision    recall  f1-score   support
+
+         AGE      1.000     1.000     1.000        15
+        DATE      1.000     1.000     1.000      2769
+       EMAIL      0.000     0.000     0.000         0
+    HOSPITAL      0.864     0.927     0.895       110
+       IDNUM      1.000     0.995     0.998      1084
+    INITIALS      0.000     0.000     0.000         0
+   IPADDRESS      0.000     0.000     0.000         0
+    LOCATION      0.987     0.958     0.972       614
+        NAME      1.000     0.999     1.000      3678
+       OTHER      0.000     0.000     0.000         0
+       PHONE      0.000     0.000     0.000         0
+         URL      0.000     0.000     0.000         0
+
+   micro avg      0.997     0.995     0.996      8270
+   macro avg      0.488     0.490     0.489      8270
+weighted avg      0.997     0.995     0.996      8270
+

@@ -12,3 +12,4 @@ requirements.txt
 papers/
 wfu_model*/
 *.tar
+tmp*

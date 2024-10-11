@@ -85,6 +85,7 @@ def compute_metrics(p):
                                 target_names=useful_class_names, digits=3, labels=range(len(useful_class_names)))
 
     return {
-        "f1": f1_score(true_labels, true_predictions, average='macro', labels=range(len(useful_class_names))),
+        "f1_macro": f1_score(true_labels, true_predictions, average='macro', labels=range(len(useful_class_names))),
+        "f1_weighted": f1_score(true_labels, true_predictions, average='weighted', labels=range(len(useful_class_names))),
         "report": report
     }

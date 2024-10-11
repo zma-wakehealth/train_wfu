@@ -29,7 +29,7 @@ class MyTrainer(Trainer):
 
         with open(self.log_file, 'a') as fid:
             if 'eval_loss' in logs:
-                fid.write(f'evaliation: step={self.state.global_step}, f1={logs["eval_f1"]}')
+                fid.write(f'evaliation: step={self.state.global_step}, f1_macro={logs["eval_f1_macro"]}, f1_weighted={logs["eval_f1_weighted"]}')
                 fid.write('\n')
                 fid.write(logs['eval_report'])
                 fid.write('\n')
