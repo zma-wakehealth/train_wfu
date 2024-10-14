@@ -1,14 +1,14 @@
 import datasets
 import numpy as np
 from transformers import AutoTokenizer
-from utils import PreProcess, compute_metrics
+from utils_fold import PreProcess, compute_metrics
 from transformers import DataCollatorForTokenClassification
 from sklearn.metrics import classification_report, f1_score
 from transformers import AutoModelForTokenClassification, TrainingArguments
 from mytrainer import MyTrainer 
 from sklearn.utils.class_weight import compute_class_weight
 import os
-from wfudata.wfudata import id2label, label2id
+from wfudata_fold import id2label, label2id
 import sys
 
 def reset_model(num_labels):
@@ -26,7 +26,6 @@ def reset_model(num_labels):
 if (__name__ == '__main__'):
 
     fold = sys.argv[1]
-
     wfu_dataset = datasets.load_dataset(f'wfudata_fold_{fold}', trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained('nlpie/bio-distilbert-uncased')
 

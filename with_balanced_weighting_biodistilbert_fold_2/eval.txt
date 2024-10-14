@@ -1,0 +1,100 @@
+doing ==== all_types ======
+evaliation: step=0, f1_macro=0.931006491390688, f1_weighted=0.9887541300671004
+              precision    recall  f1-score   support
+
+         AGE      0.984     0.962     0.973       442
+        DATE      1.000     0.993     0.996     20866
+       EMAIL      0.946     0.981     0.964        54
+    HOSPITAL      0.949     0.879     0.913      1039
+       IDNUM      0.981     0.982     0.982      1337
+    INITIALS      0.889     0.923     0.906        52
+    LOCATION      0.925     0.901     0.913       738
+        NAME      0.996     0.989     0.992      8738
+       OTHER      0.875     0.750     0.808        28
+       PHONE      0.826     0.956     0.887       274
+         URL      0.833     1.000     0.909         5
+
+   micro avg      0.993     0.985     0.989     33573
+   macro avg      0.928     0.938     0.931     33573
+weighted avg      0.993     0.985     0.989     33573
+
+doing ==== H_and_P ======
+evaliation: step=0, f1_macro=0.7157312052523203, f1_weighted=0.9817103287419953
+              precision    recall  f1-score   support
+
+         AGE      0.964     0.959     0.961       169
+        DATE      0.999     0.994     0.997      6071
+       EMAIL      0.870     1.000     0.930        20
+    HOSPITAL      0.928     0.823     0.872       389
+       IDNUM      0.800     0.776     0.788        67
+    INITIALS      0.000     0.000     0.000         0
+    LOCATION      0.493     0.647     0.559        51
+        NAME      0.994     0.971     0.982      2207
+       OTHER      0.875     0.808     0.840        26
+       PHONE      0.958     0.929     0.943       170
+         URL      0.000     0.000     0.000         0
+
+   micro avg      0.987     0.976     0.981      9170
+   macro avg      0.716     0.719     0.716      9170
+weighted avg      0.988     0.976     0.982      9170
+
+doing ==== progress ======
+evaliation: step=0, f1_macro=0.8438535560002646, f1_weighted=0.9831658196541484
+              precision    recall  f1-score   support
+
+         AGE      1.000     0.954     0.976       173
+        DATE      1.000     0.986     0.993      6558
+       EMAIL      1.000     0.971     0.985        34
+    HOSPITAL      0.961     0.858     0.906       401
+       IDNUM      0.934     1.000     0.966       128
+    INITIALS      1.000     0.750     0.857        16
+    LOCATION      0.892     0.739     0.808       157
+        NAME      0.994     0.990     0.992      2232
+       OTHER      0.000     0.000     0.000         2
+       PHONE      0.664     1.000     0.798        93
+         URL      1.000     1.000     1.000         5
+
+   micro avg      0.990     0.977     0.983      9799
+   macro avg      0.859     0.841     0.844      9799
+weighted avg      0.991     0.977     0.983      9799
+
+doing ==== radiology ======
+evaliation: step=0, f1_macro=0.6346481923241906, f1_weighted=0.9990602946308181
+              precision    recall  f1-score   support
+
+         AGE      0.978     1.000     0.989        44
+        DATE      1.000     0.999     0.999      5404
+       EMAIL      0.000     0.000     0.000         0
+    HOSPITAL      1.000     1.000     1.000       156
+       IDNUM      1.000     0.989     0.995        94
+    INITIALS      1.000     1.000     1.000        36
+    LOCATION      0.000     0.000     0.000         0
+        NAME      0.998     0.998     0.998       647
+       OTHER      0.000     0.000     0.000         0
+       PHONE      1.000     1.000     1.000         4
+         URL      0.000     0.000     0.000         0
+
+   micro avg      1.000     0.998     0.999      6385
+   macro avg      0.634     0.635     0.635      6385
+weighted avg      1.000     0.998     0.999      6385
+
+doing ==== pathology ======
+evaliation: step=0, f1_macro=0.621468942108903, f1_weighted=0.99582421105586
+              precision    recall  f1-score   support
+
+         AGE      1.000     0.964     0.982        56
+        DATE      1.000     0.998     0.999      2833
+       EMAIL      0.000     0.000     0.000         0
+    HOSPITAL      0.903     1.000     0.949        93
+       IDNUM      0.997     0.992     0.995      1048
+    INITIALS      0.000     0.000     0.000         0
+    LOCATION      0.989     0.974     0.981       530
+        NAME      0.997     0.998     0.998      3652
+       OTHER      0.000     0.000     0.000         0
+       PHONE      0.875     1.000     0.933         7
+         URL      0.000     0.000     0.000         0
+
+   micro avg      0.996     0.995     0.996      8219
+   macro avg      0.615     0.630     0.621      8219
+weighted avg      0.996     0.995     0.996      8219
+

@@ -8,20 +8,34 @@ import numpy as np
 import shutil
 
 # see test_xml.ipynb for this list
-types_to_include = set([
- 'AGE',
- 'DATE',
- 'EMAIL',
- 'HOSPITAL',
- 'IDNUM',
- 'INITIALS',
- 'IPADDRESS',
- 'LOCATION',
- 'NAME',
- 'OTHER',
- 'PHONE',
- 'URL',
-])
+# types_to_include = {
+#  'AGE':0,
+#  'DATE':1,
+#  'EMAIL':2,
+#  'HOSPITAL':3,
+#  'IDNUM':4,
+#  'INITIALS':5,
+#  'IPADDRESS':6,
+#  'LOCATION':7,
+#  'NAME':8,
+#  'OTHER':9,
+#  'PHONE':10,
+#  'URL':11
+# }
+
+types_to_include = {
+ 'AGE':0,
+ 'DATE':1,
+ 'EMAIL':2,
+ 'HOSPITAL':3,
+ 'IDNUM':4,
+ 'INITIALS':5,
+ 'LOCATION':6,
+ 'NAME':7,
+ 'OTHER':8,
+ 'PHONE':9,
+ 'URL':10
+}
 
 def prepare_tag(id, start, end, text, etype):
     ''' prepare the tag line for the xml file '''
@@ -38,9 +52,24 @@ if (__name__ == '__main__'):
 
     # raw data is in this csv file
     jsons = pd.read_csv('./wfudata/wfu_annotated.csv', usecols=['JSON_DATA', 'TEXT_CLASS'])
-    jsons = jsons.sample(frac=1.0, replace=False, random_state=42, ignore_index=True)
+
+    # # this bits show we need to get rid of IPADDRESS
+    # for seed in [42]:
+    #     jsons = jsons.sample(frac=1.0, replace=False, random_state=seed, ignore_index=True)
+    #     intervals = [int(np.round(x)) for x in np.linspace(0, len(jsons), n_splits+1)]
+    #     for cv in range(n_splits):
+    #         counts = np.zeros(len(types_to_include), dtype=np.int32)
+    #         i, j = intervals[cv], intervals[cv+1]
+    #         records = pd.concat([jsons[:i], jsons[j:]], axis=0).copy()
+    #         for record in records['JSON_DATA']:
+    #             record = json.loads(record)
+    #             for x in record['asets']:
+    #                 if x['type'] in types_to_include and len(x['annots']) > 0:
+    #                     counts[types_to_include[x['type']]] += 1
+    #         print(counts)
 
     # get the intervals for cv
+    jsons = jsons.sample(frac=1.0, replace=False, random_state=42, ignore_index=True)
     intervals = [int(np.round(x)) for x in np.linspace(0, len(jsons), n_splits+1)]
     for cv in range(n_splits):
         i, j = intervals[cv], intervals[cv+1]
@@ -50,6 +79,16 @@ if (__name__ == '__main__'):
             if split == 'train':
                 records = pd.concat([jsons[:i], jsons[j:]], axis=0).copy()
                 output_dir = f'wfudata_fold_{cv}/training_wfu'
+
+                # do some counting do double check there's no empty class
+                counts = np.zeros(len(types_to_include), dtype=np.int32)
+                for record in records['JSON_DATA']:
+                    record = json.loads(record)
+                    for x in record['asets']:
+                        if x['type'] in types_to_include and len(x['annots']) > 0:
+                            counts[types_to_include[x['type']]] += 1
+                print(f'cv={cv}, counts={counts}')
+
             else:
                 records = jsons[i:j].copy()
                 output_dir = f'wfudata_fold_{cv}/testing_wfu'

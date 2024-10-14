@@ -1,14 +1,14 @@
 import datasets
 import numpy as np
 from transformers import AutoTokenizer
-from utils import PreProcess, compute_metrics
+from utils_fold import PreProcess, compute_metrics
 from transformers import DataCollatorForTokenClassification
 from sklearn.metrics import classification_report, f1_score
 from transformers import AutoModelForTokenClassification, TrainingArguments
 from mytrainer import MyTrainer 
 from sklearn.utils.class_weight import compute_class_weight
 import os
-from wfudata.wfudata import id2label, label2id
+from wfudata_fold import id2label, label2id
 import sys
 
 device = 'cuda:0'
