@@ -11,5 +11,6 @@ checkpoint-*
 requirements.txt
 papers/
 wfu_model*/
+*wfumodel*
 *.tar
 tmp*
