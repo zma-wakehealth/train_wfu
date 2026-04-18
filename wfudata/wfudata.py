@@ -1,88 +1,127 @@
-import datasets
 import os
-import xml.etree.ElementTree as et
+import xml.etree.ElementTree as ET
 from itertools import count
-import numpy as np
 
-_DESCRIPTION = """
-This is from the wfu hand tag data
-"""
+import datasets
 
-_class_names = [
-    'AGE',
-    'DATE',
-    'EMAIL',
-    'HOSPITAL',
-    'IDNUM',
-    'INITIALS',
-    'IPADDRESS',
-    'LOCATION',
-    'NAME',
-    'OTHER',
-    'PHONE',
-    'URL',
-    'NORMAL'
+_DESCRIPTION = "WFU hand-tagged de-identification dataset (XML format)"
+
+CLASS_NAMES = [
+    'AGE', 'DATE', 'EMAIL', 'HOSPITAL', 'IDNUM', 'INITIALS',
+    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL', 'NORMAL'
 ]
 
-id2label, label2id = {}, {}
-for id, label in enumerate(_class_names):
-    id2label[id] = label
-    label2id[label] = id
+LABEL2ID = {label: i for i, label in enumerate(CLASS_NAMES)}
+ID2LABEL = {i: label for label, i in LABEL2ID.items()}
 
-normal_l = label2id['NORMAL']
-useful_class_names = _class_names[:]
-useful_class_names.remove('NORMAL')
 
-class i2b2_2014_Dataset(datasets.GeneratorBasedBuilder):
+class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
 
     BUILDER_CONFIGS = [
-        datasets.BuilderConfig(name='deid')
+        datasets.BuilderConfig(name="deid", version=datasets.Version("1.0.0"))
     ]
 
     DEFAULT_CONFIG_NAME = "deid"
 
     def _info(self):
         return datasets.DatasetInfo(
-            description = _DESCRIPTION,
-            features = datasets.Features({
-                'filename': datasets.Value('string'),
-                'text': datasets.Value('string'),
-                'label': datasets.ClassLabel(num_classes=len(_class_names), names=_class_names),
-                'phi': datasets.Sequence({
-                    'ids': datasets.Value('string'),
-                    'offsets': datasets.Sequence(datasets.Value('int32'), length=2), # the sequence seems just bracket, so do not do sequence([])
-                    'types': datasets.Value('string')
-                })
-            }))
+            description=_DESCRIPTION,
+            features=datasets.Features({
+                "filename": datasets.Value("string"),
+                "text": datasets.Value("string"),
+                "phi": datasets.Sequence({
+                    "id": datasets.Value("string"),
+                    "start": datasets.Value("int32"),
+                    "end": datasets.Value("int32"),
+                    "type": datasets.ClassLabel(names=CLASS_NAMES),
+                }),
+            }),
+        )
 
     def _split_generators(self, dl_manager):
-        path = os.path.join(os.getcwd(), 'wfudata/')
-        train_dirnames = [os.path.join(path, 'training_wfu')]
-        test_dirnames = [os.path.join(path, 'testing_wfu')]
+        data_dir = self.config.data_dir or "wfudata"
 
-        # remember the gen_kwargs needs to match the one in _generate_examples
+        train_dir = os.path.join(data_dir, "training_wfu")
+        test_dir = os.path.join(data_dir, "testing_wfu")
+
         return [
-            datasets.SplitGenerator(name=datasets.Split.TRAIN, gen_kwargs={'dirnames': train_dirnames}),
-            datasets.SplitGenerator(name=datasets.Split.TEST, gen_kwargs={'dirnames': test_dirnames}),
+            datasets.SplitGenerator(
+                name=datasets.Split.TRAIN,
+                gen_kwargs={"dirnames": [train_dir]},
+            ),
+            datasets.SplitGenerator(
+                name=datasets.Split.TEST,
+                gen_kwargs={"dirnames": [test_dir]},
+            ),
         ]
-    
+
+    def _get_text(self, root):
+        node = root.find("TEXT")
+        if node is None or node.text is None:
+            return ""
+        return node.text
+
+    def _parse_tags(self, root):
+        tags_node = root.find("TAGS")
+        if tags_node is None:
+            return []
+
+        phis = []
+        for tag in tags_node:
+            try:
+                start = int(tag.attrib["start"])
+                end = int(tag.attrib["end"])
+                tag_type = tag.attrib["TYPE"]
+
+                # Skip unknown labels safely
+                if tag_type not in LABEL2ID:
+                    continue
+
+                phis.append({
+                    "id": tag.attrib.get("id", ""),
+                    "start": start,
+                    "end": end,
+                    "type": tag_type,
+                })
+
+            except KeyError:
+                # Skip malformed tag entries
+                continue
+            except ValueError:
+                # Skip invalid integer conversions
+                continue
+
+        return phis
+
+    def _parse_xml(self, filepath):
+        root = ET.parse(filepath).getroot()
+        text = self._get_text(root)
+        phis = self._parse_tags(root)
+        return text, phis
+
     def _generate_examples(self, dirnames):
         uid = count(0)
+
         for dirname in dirnames:
+            if not os.path.exists(dirname):
+                raise FileNotFoundError(f"Directory not found: {dirname}")
+
             filenames = sorted(os.listdir(dirname))
+
             for filename in filenames:
-                xmldoc = et.parse(os.path.join(dirname,filename)).getroot()
-                text = xmldoc.findall("TEXT")[0].text
-                phis = []
-                for line in xmldoc.findall("TAGS")[0]:
-                    phi = {
-                        'ids': line.attrib['id'],
-                        'offsets': [np.int32(line.attrib['start']), np.int32(line.attrib['end'])],
-                        'types': line.attrib['TYPE']
-                    }
-                    phis.append(phi)
+                if not filename.endswith(".xml"):
+                    continue
+
+                filepath = os.path.join(dirname, filename)
+
+                try:
+                    text, phis = self._parse_xml(filepath)
+                except ET.ParseError:
+                    # Skip corrupted XML files
+                    continue
+
                 yield next(uid), {
-                    'filename': filename,
-                    'text': text,
-                    'phi': phis
+                    "filename": filename,
+                    "text": text,
+                    "phi": phis,
                 }
