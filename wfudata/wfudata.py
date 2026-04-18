@@ -1,3 +1,6 @@
+# custom dataset script to handle the input xml data
+# structure of this class (_info, _split_generators and _generate_examples) refers to https://huggingface.co/docs/datasets/v3.6.0/en/dataset_script
+
 import os
 import xml.etree.ElementTree as ET
 from itertools import count
@@ -6,14 +9,19 @@ import datasets
 
 _DESCRIPTION = "WFU hand-tagged de-identification dataset (XML format)"
 
-CLASS_NAMES = [
+# switch to BIO format
+BASE_TYPES = [
     'AGE', 'DATE', 'EMAIL', 'HOSPITAL', 'IDNUM', 'INITIALS',
     'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL', 'NORMAL'
 ]
 
+CLASS_NAMES = ['O']
+for base_type in BASE_TYPES:
+    CLASS_NAMES.append(f"B-{base_type}")
+    CLASS_NAMES.append(f'I-{base_type}')
+
 LABEL2ID = {label: i for i, label in enumerate(CLASS_NAMES)}
 ID2LABEL = {i: label for label, i in LABEL2ID.items()}
-
 
 class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
 
@@ -33,7 +41,8 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                     "id": datasets.Value("string"),
                     "start": datasets.Value("int32"),
                     "end": datasets.Value("int32"),
-                    "type": datasets.ClassLabel(names=CLASS_NAMES),
+                    # store the base type string
+                    "type": datasets.Value("string"),
                 }),
             }),
         )
@@ -74,7 +83,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                 tag_type = tag.attrib["TYPE"]
 
                 # Skip unknown labels safely
-                if tag_type not in LABEL2ID:
+                if tag_type not in BASE_TYPES:
                     continue
 
                 phis.append({
@@ -125,3 +134,12 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                     "text": text,
                     "phi": phis,
                 }
+
+# some simple sanity check
+if (__name__ == '__main__'):
+    from datasets import load_dataset
+
+    ds = load_dataset('./wfudata.py', data_dir='../wfudata', trust_remote_code=True)
+
+    print(ds)
+    print(ds['train'][0])
