@@ -2,71 +2,72 @@ import numpy as np
 from sklearn.metrics import classification_report, f1_score
 from wfudata.wfudata import useful_class_names, normal_l 
 
-class PreProcess():
-    '''
-      It's much better if you can set the tokenizer.max_length after it's loaded
-    '''
+class PreProcess:
+    """
+    Convert raw text + span annotations into BIO token-level labels
+    using string formatting for label lookups.
+    """
+
     def __init__(self, tokenizer, str2int, max_length=512, stride=64):
         self.tokenizer = tokenizer
         if tokenizer.model_max_length > max_length:
             tokenizer.model_max_length = max_length
+
         self.stride = stride
         self.str2int = str2int
-    
+        # Cache 'O' to avoid formatting it repeatedly
+        self.outside_label_id = self.str2int("O")
+
     def __call__(self, examples):
-        '''
-          careful here, you need think of examples as a list of example within a batch
-        '''
+        tokenized_inputs = self.tokenizer(
+            examples["text"],
+            truncation=True,
+            max_length=None,
+            return_overflowing_tokens=True,
+            return_offsets_mapping=True,
+            stride=self.stride,
+        )
 
-        # set the max_length to none to use tokenizer.model_max_length instead
-        tokenized_inputs = self.tokenizer(examples['text'], is_split_into_words=False, truncation=True,
-                                          max_length=None, return_overflowing_tokens=True,
-                                          stride=self.stride)
-        
-        labels = []
-        previous_sample_idx = None
-        
-        # loop over line by line in this batch
-        for i in range(len(tokenized_inputs['input_ids'])):
+        all_labels = []
 
-            encoding = tokenized_inputs[i]
+        for i, offsets in enumerate(tokenized_inputs["offset_mapping"]):
+            sample_idx = tokenized_inputs["overflow_to_sample_mapping"][i]
+            phis = examples["phi"][sample_idx]
 
-            # track back the corresponding phi
-            current_sample_idx = tokenized_inputs['overflow_to_sample_mapping'][i]
-            if type(examples) is dict:  # only one instance call
-                phi = examples['phi']
-            else:
-                phi = examples['phi'][current_sample_idx]
-            if current_sample_idx != previous_sample_idx:
-                k = 0
-                previous_sample_idx = current_sample_idx
+            labels = []
 
-            label = []
-            # loop over every word in this encoding
-            for j in range(len(encoding)):
-                span = encoding.token_to_chars(j)  
-                if span is None:
-                    label.append(-100)  # the ignore_index in crossentropy
-                else:
-                    idx1, idx2 = span
-                    # if already out of range
-                    if k >= len(phi['offsets']):
-                        label.append(self.str2int('NORMAL'))
-                    else:
-                        phi1, phi2 = phi['offsets'][k]
-                        # if one of the end inside a phi span, mark it
-                        # it assumes the phi bracket is always at or behind the target
-                        if (idx1 >= phi1 and idx1 <= phi2) or (idx2 >= phi1 and idx2 <= phi2):
-                            label.append(self.str2int(phi['types'][k]))
+            for start, end in offsets:
+                # 1. Handle special tokens (CLS, SEP, PAD)
+                # These have (0, 0) offsets in most Hugging Face tokenizers
+                if start == end:
+                    labels.append(-100)
+                    continue
+
+                label_id = self.outside_label_id
+
+                # 2. Iterating through the PHI dictionary-of-lists
+                # We check if the current token overlaps with any PHI span
+                for s, e, t in zip(phis["start"], phis["end"], phis["type"]):
+                    if start < e and end > s:
+                        # 3. BIO Logic via string formatting
+                        # B- if token start matches span start exactly
+                        if start <= s < end:     # this is more robust since some model will attach space in token " token" 
+                            label_id = self.str2int(f"B-{t}")
+                        # I- if the token starts after the span start
                         else:
-                            label.append(self.str2int('NORMAL'))
-                        # move to the next phi offset if needed
-                        # be careful it should be <= idx2 since you already compare this location, need to move the phi now
-                        while k < len(phi['offsets']) and phi['offsets'][k][1] <= idx2:
-                            k += 1
+                            label_id = self.str2int(f"I-{t}")
+                        break
 
-            labels.append(label)
-        tokenized_inputs['labels'] = labels     
+                labels.append(label_id)
+
+            all_labels.append(labels)
+
+        tokenized_inputs["labels"] = all_labels
+
+        # Cleanup for training
+        tokenized_inputs.pop("offset_mapping")
+        tokenized_inputs.pop("overflow_to_sample_mapping")
+
         return tokenized_inputs
 
 def compute_metrics(p):
