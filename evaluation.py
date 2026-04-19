@@ -1,4 +1,3 @@
-from collections import Counter
 import numpy as np
 
 def extract_spans(label_ids, int2str, unique_id=0):
@@ -13,6 +12,7 @@ def extract_spans(label_ids, int2str, unique_id=0):
     
     Returns:
         List of tuples: (unique_id, start_idx, end_idx, entity_type)
+        The index follows standard convention, [start_idx, end_idx)
     """
     spans = []
     current = None  # Format: [unique_id, start, end, entity_type]
@@ -31,7 +31,7 @@ def extract_spans(label_ids, int2str, unique_id=0):
                 current = None
             continue
 
-        # Split BIO tag (e.g., "B-DISEASE" -> "B", "DISEASE")
+        # Split BIO tag (e.g., "B-NAME" -> "B", "NAME")
         prefix, entity = tag.split("-", 1)
 
         if prefix == "B":
@@ -43,7 +43,7 @@ def extract_spans(label_ids, int2str, unique_id=0):
         elif prefix == "I":
             # Continuation: Extend if entity type matches, otherwise handle "broken" BIO
             if current and current[3] == entity:
-                current[2] = idx + 1
+                current[2] = idx + 1   # note that if there's a -100 in the middle of the span, this correctly continues to expand current
             else:
                 # Logic for "I" without a valid "B" or type mismatch:
                 # Close previous and treat this "I" as a new start (lenient parsing)
@@ -67,8 +67,9 @@ def compute_metrics(p, int2str):
     # Convert logits to class indices
     predictions = np.argmax(predictions, axis=2)
 
-    all_pred_spans = []
-    all_true_spans = []
+    # I believe there's no duplicated entry, so set would be fine
+    all_pred_spans = set()
+    all_true_spans = set()
 
     # Iterate through batch
     for i, (pred_seq, label_seq) in enumerate(zip(predictions, labels)):
@@ -83,20 +84,17 @@ def compute_metrics(p, int2str):
             for p_val, l_val in zip(pred_seq, label_seq)
         ]
         
-        all_pred_spans.extend(extract_spans(masked_pred_seq, int2str, unique_id))
-        all_true_spans.extend(extract_spans(label_seq, int2str, unique_id))
+        all_pred_spans.update(extract_spans(masked_pred_seq, int2str, unique_id))
+        all_true_spans.update(extract_spans(label_seq, int2str, unique_id))
 
     # --- GLOBAL (MICRO) CALCULATIONS ---
-    # Counter subtraction correctly handles counts: 
+    # Set operation should correctly handle: 
     # (Preds & True) = True Positives
     # (Preds - True) = False Positives
     # (True - Preds) = False Negatives
-    pred_counter = Counter(all_pred_spans)
-    true_counter = Counter(all_true_spans)
-
-    tp = sum((pred_counter & true_counter).values())
-    fp = sum((pred_counter - true_counter).values())
-    fn = sum((true_counter - pred_counter).values())
+    tp = len(all_pred_spans & all_true_spans)
+    fp = len(all_pred_spans - all_true_spans)
+    fn = len(all_true_spans - all_pred_spans)
 
     precision_micro = tp / (tp + fp) if (tp + fp) > 0 else 0.0
     recall_micro = tp / (tp + fn) if (tp + fn) > 0 else 0.0
@@ -105,30 +103,25 @@ def compute_metrics(p, int2str):
 
     # --- PER-CLASS & MACRO CALCULATIONS ---
     per_class = {}
-    true_class_counts = Counter([s[3] for s in all_true_spans])
-    # Combine sets of labels to ensure we evaluate everything the model guessed
-    labels_set = set(true_class_counts.keys()) | set([s[3] for s in all_pred_spans])
+    labels_set = {s[3] for s in all_pred_spans} | {s[3] for s in all_true_spans}
 
     f1_list = []
     weights = []
 
     for label in sorted(labels_set):
         # Filter spans for this specific class
-        p_class = [s for s in all_pred_spans if s[3] == label]
-        t_class = [s for s in all_true_spans if s[3] == label]
+        p_class = {s for s in all_pred_spans if s[3] == label}
+        t_class = {s for s in all_true_spans if s[3] == label}
 
-        pc = Counter(p_class)
-        tc = Counter(t_class)
-
-        tp_c = sum((pc & tc).values())
-        fp_c = sum((pc - tc).values())
-        fn_c = sum((tc - pc).values())
+        tp_c = len(p_class & t_class)
+        fp_c = len(p_class - t_class)
+        fn_c = len(t_class - p_class)
 
         p_c = tp_c / (tp_c + fp_c) if (tp_c + fp_c) > 0 else 0.0
         r_c = tp_c / (tp_c + fn_c) if (tp_c + fn_c) > 0 else 0.0
         f_c = (2 * p_c * r_c / (p_c + r_c)) if (p_c + r_c) > 0 else 0.0
 
-        support = true_class_counts.get(label, 0)
+        support = len(t_class)
         per_class[label] = {"precision": p_c, "recall": r_c, "f1": f_c, "support": support}
 
         f1_list.append(f_c)
@@ -162,3 +155,78 @@ def format_report(per_class):
             f"n: {metrics['support']}"
         )
     return "\n".join(lines)
+
+# some tests here for now
+if (__name__ == '__main__'):
+    import torch
+
+    # include name and date only    
+    int2str = {
+        0: "O",
+        1: "B-NAME",
+        2: "I-NAME",
+        3: "B-DATE",
+        4: "I-DATE",
+    }
+
+    text_1 = 'John Doe was born 1990 .'
+    
+    labels_1 = [
+        1,  # B-NAME
+        2,  # I-NAME
+        0,  # O
+        0,  # O
+        3,  # B-DATE
+        0,  # O
+    ]
+
+    preds_1 = [
+        [0.0, 1.0, 0.0, 0.0, 0.0],  # B-NAME
+        [0.0, 0.0, 1.0, 0.0, 0.0],  # I-NAME
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O
+    ]
+
+    text_2 = 'On   Jan   2020   .'
+
+    
+    labels_2 = [
+        0,  # O
+        3,  # B-DATE
+        4,  # I-DATE
+        0,  # O
+        -100,  # padding
+        -100
+    ]
+
+    
+    preds_2 = [
+        [0.0, 1.0, 0.0, 0.0, 0.0],  # B-NAME  (false positive)
+        [0.0, 0.0, 0.0, 1.0, 0.0],  # B-DATE
+        [0.0, 0.0, 0.0, 0.0, 1.0],  # I-DATE
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O should not matter
+        [1.0, 0.0, 0.0, 0.0, 0.0],  # O should not matter
+    ]
+
+    predictions = np.array([
+        preds_1,
+        preds_2,
+    ])
+
+    labels = np.array([
+        labels_1,
+        labels_2,
+    ])
+
+    eval_result = compute_metrics((predictions, labels), int2str)
+    print(eval_result)
+    print(format_report(eval_result['per_class']))
+
+    print('expected micro precision=0.667, recall=0.667, f1=0.667')
+    print('expected f1 macro=0.667, f1 weighted avg=0.667')
+    print('expected DATE precision=1.0, recall=0.5, f1=0.667')
+    print('expected name precision=0.5, recall=1.0, f1=0.667')
+

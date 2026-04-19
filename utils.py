@@ -1,6 +1,6 @@
-import numpy as np
-from sklearn.metrics import classification_report, f1_score
-from wfudata.wfudata import useful_class_names, normal_l 
+# import numpy as np
+# from sklearn.metrics import classification_report, f1_score
+# from wfudata.wfudata import useful_class_names, normal_l 
 
 class PreProcess:
     """
@@ -70,23 +70,33 @@ class PreProcess:
 
         return tokenized_inputs
 
-def compute_metrics(p):
-    predictions, labels = p
-    predictions = np.argmax(predictions, axis=2)
+# some sanity check
+if (__name__ == '__main__'):
+    from datasets import load_dataset
+    from transformers import AutoTokenizer
+    from wfudata.wfudata import LABEL2ID
 
-    true_predictions = [
-        p for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 and l != normal_l
-    ]
+    wfu_dataset = load_dataset('wfudata/wfudata.py', data_dir='./wfudata', trust_remote_code=True)
 
-    true_labels = [
-        l for p, l in zip(predictions.reshape(-1), labels.reshape(-1)) if l != -100 and l != normal_l
-    ]
+    tokenizer = AutoTokenizer.from_pretrained('nlpie/bio-distilbert-uncased', local_files_only=True)
 
-    report = classification_report(true_labels, true_predictions, zero_division=0.0,
-                                target_names=useful_class_names, digits=3, labels=range(len(useful_class_names)))
+    preprocess = PreProcess(tokenizer, wfu_dataset['train'].features['label'].str2int, stride=16)
+    wfu_dataset_tokenized = wfu_dataset.map(preprocess, batched=True, batch_size=16, 
+                                            remove_columns=wfu_dataset['train'].column_names)
 
-    return {
-        "f1_macro": f1_score(true_labels, true_predictions, average='macro', labels=range(len(useful_class_names))),
-        "f1_weighted": f1_score(true_labels, true_predictions, average='weighted', labels=range(len(useful_class_names))),
-        "report": report
-    }
+    print(wfu_dataset)
+    print(wfu_dataset['train'][0])
+
+    example = wfu_dataset_tokenized['train'][0]
+    tokens, int2str = [], wfu_dataset['train'].features['label'].int2str
+    for input_id, label in zip(example['input_ids'], example['labels']):
+        if label <= 0:  continue
+        print(f"{tokenizer.decode(input_id)} {int2str(label)}")
+
+    example = wfu_dataset_tokenized['train'][1]
+    tokens, int2str = [], wfu_dataset['train'].features['label'].int2str
+    for input_id, label in zip(example['input_ids'], example['labels']):
+        if label <= 0:  continue
+        print(f"{tokenizer.decode(input_id)} {int2str(label)}")
+
+    # print(wfu_dataset_tokenized['train'][0])

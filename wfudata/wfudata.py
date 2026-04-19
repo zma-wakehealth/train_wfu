@@ -37,6 +37,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
             features=datasets.Features({
                 "filename": datasets.Value("string"),
                 "text": datasets.Value("string"),
+                'label': datasets.ClassLabel(num_classes=len(CLASS_NAMES), names=CLASS_NAMES),
                 "phi": datasets.Sequence({
                     "id": datasets.Value("string"),
                     "start": datasets.Value("int32"),
