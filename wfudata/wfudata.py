@@ -44,6 +44,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                     "end": datasets.Value("int32"),
                     # store the base type string
                     "type": datasets.Value("string"),
+                    "tag_text": datasets.Value("string")
                 }),
             }),
         )
@@ -135,7 +136,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                             print(phi)
                             print('===', text[max(phi['start']-10,0):min(phi['end']+10,len(text))])
                         if text[phi['start']:phi['end']] != phi['tag_text']:
-                            print(f"Error {phi} {text[phi['start']:phi['end']]}")
+                            print(f"!!! ERROR {phi} {text[phi['start']:phi['end']]}")
                 except ET.ParseError:
                     # Skip corrupted XML files
                     continue
@@ -153,4 +154,4 @@ if (__name__ == '__main__'):
     ds = load_dataset('./wfudata.py', data_dir='../wfudata', trust_remote_code=True)
 
     print(ds)
-    print(ds['train'][0])
+    print(ds['train'][2])
