@@ -136,7 +136,7 @@ def compute_metrics(p, int2str):
         "f1_micro": f1_micro,
         "f1_macro": f1_macro,
         "f1_weighted": f1_weighted,
-        "per_class": per_class
+        'report': format_report(per_class)
     }
 
 
@@ -223,7 +223,6 @@ if (__name__ == '__main__'):
 
     eval_result = compute_metrics((predictions, labels), int2str)
     print(eval_result)
-    print(format_report(eval_result['per_class']))
 
     print('expected micro precision=0.667, recall=0.667, f1=0.667')
     print('expected f1 macro=0.667, f1 weighted avg=0.667')

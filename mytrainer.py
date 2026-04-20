@@ -13,19 +13,22 @@ class MyTrainer(Trainer):
         self.class_weights = torch.tensor(class_weights).to(self.model.device)
         self.log_file = log_file
     
-    def compute_loss(self, model, inputs, return_outputs=False):
-        labels = inputs.pop("labels")
-        # forward pass
-        outputs = model(**inputs)
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        labels = inputs["labels"]
+        outputs = model(**{k: v for k, v in inputs.items() if k!= 'labels'})
         logits = outputs.get("logits")
-        loss_fct = nn.CrossEntropyLoss(weight=self.class_weights)
+        loss_fct = nn.CrossEntropyLoss(
+            weight=self.class_weights.to(logits.device),
+            ignore_index=-100
+        )
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
         return (loss, outputs) if return_outputs else loss
 
-    def log(self, logs):
+    def log(self, logs, *args, **kwargs):
         ''' over write the log to output things to file '''
+        super().log(logs)
 
-        print('inside log:', logs, self.state.global_step)
+        # print('inside log:', logs, self.state.global_step)
 
         with open(self.log_file, 'a') as fid:
             if 'eval_loss' in logs:

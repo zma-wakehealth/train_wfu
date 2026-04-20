@@ -4,11 +4,10 @@ Training script for WFU PHI NER (BIO tagging)
 Key features:
 - Hugging Face Trainer with custom loss (class weights)
 - Token-level BIO labeling with span-level evaluation
-- Support for cross-validation folds (wfudata_fold_X)
 """
 
 import os
-import sys
+import shutil
 import numpy as np
 import datasets
 
@@ -19,11 +18,12 @@ from transformers import (
     TrainingArguments
 )
 
-from utils_fold import PreProcess, compute_metrics
+from preprocess import PreProcess
+from evaluation import compute_metrics
 from mytrainer import MyTrainer
 
 # label mappings (must match dataset)
-from wfudata_fold import id2label, label2id
+from wfudata.wfudata import ID2LABEL, LABEL2ID
 
 
 # -----------------------------
@@ -43,8 +43,9 @@ def reset_model(num_labels, device):
     model = AutoModelForTokenClassification.from_pretrained(
         'nlpie/bio-distilbert-uncased',
         num_labels=num_labels,
-        id2label=id2label,
-        label2id=label2id
+        id2label=ID2LABEL,
+        label2id=LABEL2ID,
+        local_files_only=True
     ).to(device)
 
     # Workaround: ensure parameters are contiguous (avoids rare HF save bugs)
@@ -54,31 +55,47 @@ def reset_model(num_labels, device):
     return model
 
 
+# helper function to get the evaluation
+def build_compute_metrics(int2str, num_labels):
+    # normalize int2str into dict for easier handling
+    if not isinstance(int2str, dict):
+        int2str = {i: int2str([i])[0] for i in range(num_labels)}
+
+    def compute_metrics_with_mapping(p):
+        result = compute_metrics(p, int2str)
+        return result
+    
+    return compute_metrics_with_mapping
+
 # -----------------------------
 # Main
 # -----------------------------
 if __name__ == '__main__':
 
-    # ---- Parse fold argument ----
-    fold = sys.argv[1]
-
     # ---- Device ----
     device = 'cuda:0'
 
     # ---- Load dataset ----
-    # Expect dataset script like wfudata_fold_0, wfudata_fold_1, etc.
     wfu_dataset = datasets.load_dataset(
-        f'wfudata_fold_{fold}',
+        './wfudata',
         trust_remote_code=True
     )
 
-    # ---- Tokenizer ----
-    tokenizer = AutoTokenizer.from_pretrained('nlpie/bio-distilbert-uncased')
+    # --- For debugging, we can use smaller samples ----
+    # wfu_dataset = datasets.DatasetDict({
+    #     'train': wfu_dataset['train'].select(range(100)),
+    #     'test': wfu_dataset['test'].select(range(100))
+    # })
 
-    # IMPORTANT:
-    # Use full model context (DistilBERT supports 512 tokens)
-    MAX_LENGTH = 512
-    STRIDE = 128
+    # ---- Tokenizer ----
+    tokenizer = AutoTokenizer.from_pretrained('nlpie/bio-distilbert-uncased', local_files_only=True)
+
+    # force the tokenizer model length to be biomert, this is from model.config['max_position_embeddings']
+    # the default tokenizer.model_max_length is way too large
+    # 128 reduce the memory issue
+    MAX_LENGTH = 128
+    tokenizer.model_max_length = MAX_LENGTH
+    STRIDE = 32
 
     # ---- Preprocessing ----
     preprocess = PreProcess(
@@ -125,8 +142,10 @@ if __name__ == '__main__':
     # -----------------------------
     # Output + logging
     # -----------------------------
-    output_dir = f'with_balanced_weighting_biodistilbert_fold_{fold}'
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = f'debug/'
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
+    os.makedirs(output_dir)
 
     log_file = f'{output_dir}/log.txt'
     if os.path.exists(log_file):
@@ -144,8 +163,8 @@ if __name__ == '__main__':
         output_dir=output_dir,
 
         learning_rate=2e-5,
-        per_device_train_batch_size=8,   # safer for 512 tokens
-        per_device_eval_batch_size=8,
+        per_device_train_batch_size=16,
+        per_device_eval_batch_size=16,
 
         num_train_epochs=10,
         weight_decay=0.01,
@@ -162,8 +181,6 @@ if __name__ == '__main__':
         load_best_model_at_end=True,
         metric_for_best_model="eval_f1_weighted",  # IMPORTANT: must match HF naming
         greater_is_better=True,
-
-        fp16=True,  # use mixed precision for speed/memory
 
         push_to_hub=False
     )
@@ -184,7 +201,10 @@ if __name__ == '__main__':
         tokenizer=tokenizer,
         data_collator=data_collator,
 
-        compute_metrics=compute_metrics
+        compute_metrics=build_compute_metrics(
+            wfu_dataset['train'].features['label'].int2str,
+            num_labels
+        )
     )
 
     # -----------------------------

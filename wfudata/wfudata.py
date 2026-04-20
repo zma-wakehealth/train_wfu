@@ -82,6 +82,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                 start = int(tag.attrib["start"])
                 end = int(tag.attrib["end"])
                 tag_type = tag.attrib["TYPE"]
+                tag_text = tag.attrib["text"]
 
                 # Skip unknown labels safely
                 if tag_type not in BASE_TYPES:
@@ -92,6 +93,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                     "start": start,
                     "end": end,
                     "type": tag_type,
+                    "tag_text": tag_text
                 })
 
             except KeyError:
@@ -126,6 +128,14 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
 
                 try:
                     text, phis = self._parse_xml(filepath)
+                    # add a check to make sure the index is correct
+                    for phi in phis:
+                        # if '&quot' in phi['tag_text']:
+                        if '&apos' in phi['tag_text']:
+                            print(phi)
+                            print('===', text[max(phi['start']-10,0):min(phi['end']+10,len(text))])
+                        if text[phi['start']:phi['end']] != phi['tag_text']:
+                            print(f"Error {phi} {text[phi['start']:phi['end']]}")
                 except ET.ParseError:
                     # Skip corrupted XML files
                     continue

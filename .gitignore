@@ -14,3 +14,4 @@ wfu_model*/
 *wfumodel*
 *.tar
 tmp*
+debug/
