@@ -1,7 +1,7 @@
 import datasets
 import numpy as np
 from transformers import AutoTokenizer
-from utils import PreProcess, compute_metrics
+from preprocess import PreProcess, compute_metrics
 from transformers import DataCollatorForTokenClassification
 from sklearn.metrics import classification_report, f1_score
 from transformers import AutoModelForTokenClassification, TrainingArguments

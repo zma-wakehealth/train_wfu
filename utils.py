@@ -1,5 +1,12 @@
 import numpy as np
 
+def trim_span_end(start, end, raw_text):
+    """
+      
+    """
+
+
+
 def compute_class_weight_ner(labels, num_classes, o_label_id=0, o_weight_scale=0.5):
     '''
       compute weight class with extra downweight on O label
