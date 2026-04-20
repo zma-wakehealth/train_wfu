@@ -1,78 +1,129 @@
-from lxml import etree
-import pandas as pd
-import json
-import argparse
-from sklearn.model_selection import train_test_split
 import os
+import json
+import html
+import argparse
+import pandas as pd
+from lxml import etree
+from sklearn.model_selection import train_test_split
 
-# see test_xml.ipynb for this list
-types_to_include = set([
- 'AGE',
- 'DATE',
- 'EMAIL',
- 'HOSPITAL',
- 'IDNUM',
- 'INITIALS',
- 'IPADDRESS',
- 'LOCATION',
- 'NAME',
- 'OTHER',
- 'PHONE',
- 'URL',
-])
+# NER labels to include in the XML conversion
+TYPES_TO_INCLUDE = {
+    'AGE', 'DATE', 'EMAIL', 'HOSPITAL', 'IDNUM', 'INITIALS',
+    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL'
+}
 
-def prepare_tag(id, start, end, text, etype):
-    ''' prepare the tag line for the xml file '''
-    element = etree.Element(etype, id='P'+str(id), start=str(start), end=str(end), text=text, TYPE=etype, comment='')
-    return element
+def normalize_text(text, replace_newlines=True):
+    """
+    Standardizes the text by unescaping HTML and normalizing whitespace.
+    This MUST match the logic used during model inference.
+    """
+    if not text:
+        return ""
+    # Unescape healthy HTML (e.g., &apos; -> ')
+    text = html.unescape(text)
+    # Standardize whitespace
+    text = text.replace('\r', ' ').replace('\t', ' ')
+    if replace_newlines:
+        text = text.replace('\n', ' ')
+    return text
 
-def prettyprint(element, **kwargs):
-    xml = etree.tostring(element, pretty_print=True, **kwargs)
-    print(xml.decode(), end='')
+def get_mapping_offset(original_idx, raw_text, replace_newlines=True):
+    """
+    Calculates the new index of a character after the text has been normalized.
+    """
+    prefix = raw_text[:original_idx]
+    clean_prefix = normalize_text(prefix, replace_newlines=replace_newlines)
+    return len(clean_prefix)
 
-if (__name__ == '__main__'):
+def trim_span_end(start, end, raw_signal):
+    """
+    If a span partially captures an HTML entity (e.g., 'Austin&apos'), 
+    this trims it back to 'Austin'.
+    """
+    span_text = raw_signal[start:end]
+    # Common fragments the annotator's cursor might have accidentally caught
+    fragments = ('&apos', '&amp', '&quot', '&lt', '&gt', '&nbsp')
+    
+    for frag in fragments:
+        if span_text.endswith(frag):
+            return end - len(frag)
+    return end
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--split', help = 'choose between train or test split', required=True)
+def prepare_tag(tag_id, start, end, text, etype):
+    """Creates an lxml Element for a PHI tag."""
+    return etree.Element(
+        etype, 
+        id='P'+str(tag_id), 
+        start=str(start), 
+        end=str(end), 
+        text=text, 
+        TYPE=etype, 
+        comment=''
+    )
+
+def process_records(records, target_dir):
+    """Processes a list of JSON records and saves them as XML files."""
+    os.makedirs(target_dir, exist_ok=True)
+    
+    for k, record_str in enumerate(records):
+        record = json.loads(record_str)
+        raw_signal = record['signal']
+        
+        # 1. Normalize the full text for the <TEXT> block
+        clean_signal = normalize_text(raw_signal)
+        
+        # 2. Build XML structure
+        root = etree.Element('wfu')
+        text_node = etree.SubElement(root, 'TEXT')
+        text_node.text = etree.CDATA(clean_signal)
+        
+        tags_node = etree.SubElement(root, 'TAGS')
+        elements = []
+        
+        # 3. Process annotations
+        for asset in record['asets']:
+            if asset['type'] in TYPES_TO_INCLUDE:
+                for annot in asset['annots']:
+                    orig_start, orig_end = annot[0], annot[1]
+                    
+                    # Trim partial HTML entities from the span
+                    fixed_end = trim_span_end(orig_start, orig_end, raw_signal)
+                    
+                    # Map original indices to normalized indices
+                    new_start = get_mapping_offset(orig_start, raw_signal)
+                    new_end = get_mapping_offset(fixed_end, raw_signal)
+                    
+                    # Extract the cleaned tag text
+                    tag_text = clean_signal[new_start:new_end]
+                    
+                    elements.append(prepare_tag(len(elements), new_start, new_end, tag_text, asset['type']))
+
+        # 4. Sort tags by start position and append to XML
+        for x in sorted(elements, key=lambda x: int(x.attrib['start'])):
+            tags_node.append(x)
+
+        # 5. Save to disk
+        output_file = os.path.join(target_dir, f'{k:05d}.xml')
+        with open(output_file, 'wb') as f:
+            f.write(etree.tostring(root, pretty_print=True, encoding='utf-8', xml_declaration=True))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Convert WFU JSON data to Cleaned XML")
+    parser.add_argument('-i', '--input-csv', default='./wfudata/wfu_annotated.csv', help='Path to raw CSV')
+    parser.add_argument('-o', '--output-dir', default='./wfudata', help='Base directory for output XMLs')
     args = parser.parse_args()
 
-    # raw data is in this csv file
-    jsons = pd.read_csv('./wfudata/wfu_annotated.csv')['JSON_DATA']
+    # Load raw data
+    df = pd.read_csv(args.input_csv)
+    jsons = df['JSON_DATA'].tolist()
 
-    # get the train or test split
-    if args.split == 'train':
-        records, _ = train_test_split(jsons, test_size=0.2, random_state=42)
-        output_dir = 'wfudata/training_wfu'
-    else:
-        _, records = train_test_split(jsons, test_size=0.2, random_state=42)
-        output_dir = 'wfudata/testing_wfu'
-    os.makedirs(output_dir, exist_ok=True)
+    # Perform 80/20 Split
+    train_records, test_records = train_test_split(jsons, test_size=0.2, random_state=42)
 
-    # load the json file
-    for k, record in enumerate(records):
-        output_file = os.path.join(output_dir, '{:05d}.xml'.format(k))
-        record = json.loads(record)
-        root = etree.Element('wfu')
+    print(f"Processing {len(train_records)} training records...")
+    process_records(train_records, os.path.join(args.output_dir, 'training_wfu'))
 
-        # prepare the TEXT tag
-        text = etree.SubElement(root, 'TEXT')
-        text.text = etree.CDATA(record['signal'])
+    print(f"Processing {len(test_records)} testing records...")
+    process_records(test_records, os.path.join(args.output_dir, 'testing_wfu'))
 
-        # loop over each type for the span
-        tags = etree.SubElement(root, 'TAGS')
-        elements = []
-        for x in record['asets']:
-            if x['type'] in types_to_include:
-                for annot in x['annots']:
-                    start = annot[0]
-                    end = annot[1]
-                    elements.append(prepare_tag(len(elements), start, end, record['signal'][start:end], x['type']))
-        # need to sort to make sure they are in orders
-        for x in sorted(elements, key=lambda x: int(x.attrib['start'])):
-            tags.append(x)
-
-        # take a look
-        # prettyprint(root)
-        with open(output_file, 'w') as fid:
-            xml = etree.tostring(root, pretty_print=True)
-            fid.write(xml.decode())
+    print("Conversion complete.")
