@@ -6,9 +6,10 @@ import sys
 from datetime import datetime
 
 # --- Configuration ---
-CONTEXT = 40
-WINDOW = 60
-INPUT_CSV = "wfu_data.csv"
+CONTEXT = 60
+WINDOW = 80
+INPUT_CSV = "wfu_annotated_test.csv"
+OUTPUT_CSV = "wfu_annotated_cleaned_location_hospital.csv"
 
 # Label mapping for interactive input
 VALID_ACTIONS = {
@@ -42,7 +43,10 @@ def find_nearby_entities(data, start, end, window=WINDOW):
         if not aset.get("hasSpan"):
             continue
         etype = aset.get("type")
-        for s, e, *_ in aset.get("annots", []):
+        # these are not useful tags
+        if etype == 'SEGMENT' or etype == 'lex' or etype == 'zone':
+            continue
+        for s, e in aset.get("annots", []):
             # Check if this span is within the 'nearby' window
             if e >= start - window and s <= end + window:
                 nearby.append((etype, s, e))
@@ -117,6 +121,8 @@ def process_json_content(data, text_id):
             print(get_context(signal, start, end))
 
             nearby = find_nearby_entities(data, start, end)
+            for etype, s, e in nearby:
+                print(f"Nearby tag: {etype}, start={s} end={e}")
             
             action = input(
                 "\nAction: [l]oc | [h]osp | [a]ddress | [n]ame | [m]erge | s[x]plit | [d]elete | [s]kip : "
@@ -205,6 +211,7 @@ def main():
 
     # 2. Read existing data
     rows = []
+    csv.field_size_limit(999999)
     with open(INPUT_CSV, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames

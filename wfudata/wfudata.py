@@ -135,6 +135,10 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
                         if '&apos' in phi['tag_text']:
                             print(phi)
                             print('===', text[max(phi['start']-10,0):min(phi['end']+10,len(text))])
+                        if phi['type'] == 'LOCATION':
+                            print('---', phi['tag_text'])
+                            print('===', text[max(phi['start']-30,0):min(phi['end']+30,len(text))])
+                            print('')
                         if text[phi['start']:phi['end']] != phi['tag_text']:
                             print(f"!!! ERROR {phi} {text[phi['start']:phi['end']]}")
                 except ET.ParseError:
