@@ -166,7 +166,7 @@ if __name__ == '__main__':
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
 
-        num_train_epochs=10,
+        num_train_epochs=30,
         weight_decay=0.01,
 
         eval_strategy="epoch",

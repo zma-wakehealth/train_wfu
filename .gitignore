@@ -15,3 +15,5 @@ wfu_model*/
 *.tar
 tmp*
 debug/
+log*.txt
+!wfudata/*.py
