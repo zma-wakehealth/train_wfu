@@ -77,7 +77,8 @@ if __name__ == '__main__':
 
     # ---- Load dataset ----
     wfu_dataset = datasets.load_dataset(
-        './wfudata',
+        './wfudata/wfudata.py',
+        data_dir='./wfudata/data',
         trust_remote_code=True
     )
 

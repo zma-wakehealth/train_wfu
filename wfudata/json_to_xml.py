@@ -11,7 +11,7 @@ import shutil
 # NER labels to include in the XML conversion
 TYPES_TO_INCLUDE = {
     'AGE', 'DATE', 'EMAIL', 'HOSPITAL', 'IDNUM', 'INITIALS',
-    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL'
+    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL', 'ADDRESS'
 }
 
 def get_mapping_offset(original_idx, raw_text, replace_newlines=True):

@@ -2,11 +2,12 @@
 .vscode
 logs*
 test*/
-wfudata*
+wfudata/data
 .ipynb_checkpoints
 .env
 __pycache__
 *.csv
+*.xml
 checkpoint-*
 requirements.txt
 papers/
@@ -16,4 +17,3 @@ wfu_model*/
 tmp*
 debug/
 log*.txt
-!wfudata/*.py

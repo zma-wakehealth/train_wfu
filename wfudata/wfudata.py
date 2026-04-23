@@ -12,7 +12,7 @@ _DESCRIPTION = "WFU hand-tagged de-identification dataset (XML format)"
 # switch to BIO format
 BASE_TYPES = [
     'AGE', 'DATE', 'EMAIL', 'HOSPITAL', 'IDNUM', 'INITIALS',
-    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL', 'NORMAL'
+    'IPADDRESS', 'LOCATION', 'NAME', 'OTHER', 'PHONE', 'URL', 'NORMAL', 'ADDRESS'
 ]
 
 CLASS_NAMES = ['O']
@@ -155,7 +155,7 @@ class I2B2WFUDataset(datasets.GeneratorBasedBuilder):
 if (__name__ == '__main__'):
     from datasets import load_dataset
 
-    ds = load_dataset('./wfudata.py', data_dir='../wfudata', trust_remote_code=True)
+    ds = load_dataset('./wfudata.py', data_dir='.', trust_remote_code=True)
 
     print(ds)
     print(ds['train'][2])

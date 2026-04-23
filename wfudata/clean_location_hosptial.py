@@ -6,29 +6,12 @@ import sys
 from datetime import datetime
 
 # --- Configuration ---
-<<<<<<< HEAD
-CONTEXT = 60
+CONTEXT = 80
 WINDOW = 80
-INPUT_CSV = "wfu_annotated_test.csv"
-OUTPUT_CSV = "wfu_annotated_cleaned_location_hospital.csv"
-=======
-CONTEXT = 40
-WINDOW = 60
-INPUT_CSV = "wfu_data.csv"
-OUTPUT_CSV = "wfu_data_cleaned.csv"  # Now saves to a separate file
+INPUT_CSV = "data/wfu_annotated.csv"
+OUTPUT_CSV = "data/wfu_annotated_cleaned_location_hospital.csv"  # Now saves to a separate file
 
-def increase_field_limit():
-    """Increases the CSV field size limit to handle large medical notes."""
-    max_int = sys.maxsize
-    while True:
-        try:
-            csv.field_size_limit(max_int)
-            break
-        except OverflowError:
-            max_int = int(max_int / 10)
-
-increase_field_limit()
->>>>>>> 7a697e67633ea828be06d91570a125849f059ef2
+csv.field_size_limit(9999999)
 
 VALID_ACTIONS = {
     "l": "LOCATION",
@@ -39,6 +22,7 @@ VALID_ACTIONS = {
     "s": "SKIP",
     "m": "MERGE",
     "x": "SPLIT",
+    "p": "PHONE"
 }
 
 EDITABLE_TYPES = {"LOCATION", "HOSPITAL"}
@@ -58,15 +42,11 @@ def find_nearby_entities(data, start, end, window=WINDOW):
         if not aset.get("hasSpan"):
             continue
         etype = aset.get("type")
-<<<<<<< HEAD
         # these are not useful tags
         if etype == 'SEGMENT' or etype == 'lex' or etype == 'zone':
             continue
         for s, e in aset.get("annots", []):
             # Check if this span is within the 'nearby' window
-=======
-        for s, e, *_ in aset.get("annots", []):
->>>>>>> 7a697e67633ea828be06d91570a125849f059ef2
             if e >= start - window and s <= end + window:
                 nearby.append((etype, s, e))
     return nearby
@@ -134,7 +114,7 @@ def process_json_content(data, text_id):
                 print(f"Nearby tag: {etype}, start={s} end={e}")
             
             action = input(
-                "\nAction: [l]oc | [h]osp | [a]ddress | [n]ame | [m]erge | s[x]plit | [d]elete | [s]kip : "
+                "\nAction: [l]oc | [h]osp | [a]ddress | [n]ame | [p]hone | [m]erge | s[x]plit | [d]elete | [s]kip : "
             ).strip().lower()
 
             if action not in VALID_ACTIONS:
@@ -150,7 +130,7 @@ def process_json_content(data, text_id):
                 modified = True
                 continue
 
-            elif choice in ("LOCATION", "HOSPITAL", "NAME", "ADDRESS"):
+            elif choice in ("LOCATION", "HOSPITAL", "NAME", "ADDRESS", "PHONE"):
                 modified = True
                 add_annotation(data, choice, span)
 
@@ -170,8 +150,8 @@ def process_json_content(data, text_id):
                     merged_start = min(s for _, s, _ in selected)
                     merged_end = max(e for _, _, e in selected)
 
-                    final = input("Final label [l/h/a/n]: ").strip().lower()
-                    if final not in ("l", "h", "a", "n"):
+                    final = input("Final label [l/h/a/n/p]: ").strip().lower()
+                    if final not in ("l", "h", "a", "n", "p"):
                         raise ValueError("Invalid label")
 
                     remove_specific_spans(data, {(s, e) for _, s, e in selected})
@@ -247,19 +227,11 @@ def main():
     processed_ids = get_processed_ids(OUTPUT_CSV)
     print(f"Resuming... {len(processed_ids)} records already found in {OUTPUT_CSV}.")
 
-<<<<<<< HEAD
-    # 2. Read existing data
-    rows = []
-    csv.field_size_limit(999999)
-    with open(INPUT_CSV, "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-=======
     # 2. Open input and output files
     with open(INPUT_CSV, "r", encoding="utf-8") as f_in, \
          open(OUTPUT_CSV, "a", encoding="utf-8", newline="") as f_out:
         
         reader = csv.DictReader(f_in)
->>>>>>> 7a697e67633ea828be06d91570a125849f059ef2
         fieldnames = reader.fieldnames
         writer = csv.DictWriter(f_out, fieldnames=fieldnames)
 
