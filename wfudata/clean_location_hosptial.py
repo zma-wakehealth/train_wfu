@@ -160,7 +160,9 @@ def process_json_content(data, text_id):
                         rel_s, rel_e = map(int, rel_input.split(":"))
                         new_start = max(0, start + rel_s)
                         new_end = min(len(signal), start + rel_e)
-
+                        if new_start >= new_end:
+                            print("Invalid range, try again")
+                            continue
                         print(f"Preview: '{signal[new_start:new_end]}'")
                         confirm = input("Correct or not? [y/n]: ").strip().lower()
                         if confirm == 'y':
@@ -252,7 +254,10 @@ def process_json_content(data, text_id):
                     print(f"Split error: {e}")
 
     # rebuild clean structure
-    data["asets"] = rebuild_asets(new_spans)
+    unique = {}
+    for s in new_spans:
+        unique[(s["start"], s["end"])] = s
+    data["asets"] = rebuild_asets(list(unique.values()))
 
     return modified, data
 
