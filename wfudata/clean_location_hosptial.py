@@ -100,11 +100,11 @@ def process_json_content(data, text_id):
         start, end = span["start"], span["end"]
         etype = span["type"]
 
-        if etype not in EDITABLE_TYPES:
-            new_spans.append(span)
+        if (start, end) in used_spans:
             continue
 
-        if (start, end) in used_spans:
+        if etype not in EDITABLE_TYPES:
+            new_spans.append(span)
             continue
 
         print("\n" + "=" * 80)
@@ -165,7 +165,8 @@ def process_json_content(data, text_id):
                         confirm = input("Correct or not? [y/n]: ").strip().lower()
                         if confirm == 'y':
                             break
-                    except:
+                    except Exception as e:
+                        print(f"Merge error: {e}")
                         continue
 
                 overlaps = get_overlaps(spans, new_start, new_end, (start, end))
@@ -173,7 +174,7 @@ def process_json_content(data, text_id):
                 if overlaps:
                     print("\nOverlaps:")
                     for o in overlaps:
-                        print(f"{o['type']} {o['start']}-{o['end']}")
+                        print(f"{o['type']} {o['start']}-{o['end']} '{signal[o['start']:o['end']]}'")
 
                     confirm = input("Delete overlaps? [y/n]: ").strip().lower()
                     if confirm != "y":
@@ -194,6 +195,7 @@ def process_json_content(data, text_id):
                 })
 
                 used_spans.add((start, end))
+                used_spans.add((new_start, new_end))
                 modified = True
 
             except:
@@ -217,6 +219,8 @@ def process_json_content(data, text_id):
                     parts = []
                     for r in ranges_input.split(","):
                         a, b = map(int, r.split(":"))
+                        a = max(0, min(len(text), a))
+                        b = max(0, min(len(text), b))
                         parts.append((a, b))
 
                     for i, (a, b) in enumerate(parts):
@@ -244,8 +248,8 @@ def process_json_content(data, text_id):
                         modified = True
                         break
 
-                except:
-                    print("Split error.")
+                except Exception as e:
+                    print(f"Split error: {e}")
 
     # rebuild clean structure
     data["asets"] = rebuild_asets(new_spans)
